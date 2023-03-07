@@ -1,5 +1,7 @@
 package FootballPlayer;
 
+import static GameModes.FinalVariables.*;
+
 public class FootballPlayer {
     private String footballPlayerName;
     private int currentFootballPlayerRating;
@@ -12,13 +14,13 @@ public class FootballPlayer {
     private int deadlineDayPrice;
 
     public FootballPlayer(String footballPlayerName, int currentFootballPlayerRating, int maxFootballPlayerRating,
-                          FootballPlayersPositions footballPlayerPosition, boolean hasLeftChemistryStyle,
+                          String footballPlayerPosition, boolean hasLeftChemistryStyle,
                           boolean hasRightChemistryStyle, boolean isCaptain, int scoutingPrice,
                           int deadlineDayPrice) {
         this.footballPlayerName = footballPlayerName;
         this.currentFootballPlayerRating = currentFootballPlayerRating;
         this.maxFootballPlayerRating = maxFootballPlayerRating;
-        this.footballPlayerPosition = footballPlayerPosition;
+        this.footballPlayerPosition = setFootballPlayerPosition(footballPlayerPosition);
         this.hasLeftChemistryStyle = hasLeftChemistryStyle;
         this.hasRightChemistryStyle = hasRightChemistryStyle;
         this.isCaptain = isCaptain;
@@ -38,8 +40,13 @@ public class FootballPlayer {
         return maxFootballPlayerRating;
     }
 
-    public FootballPlayersPositions getFootballPlayerPosition() {
-        return footballPlayerPosition;
+    public String getFootballPlayerPositionAsString() {
+
+        if(footballPlayerPosition.equals(FootballPlayersPositions.GOALKEEPER)) return "GOALKEEPER";
+        else if(footballPlayerPosition.equals(FootballPlayersPositions.DEFENDER)) return "DEFENDER";
+        else if(footballPlayerPosition.equals(FootballPlayersPositions.MIDFIELDER)) return "MIDFIELDER";
+        else if(footballPlayerPosition.equals(FootballPlayersPositions.ATTACKER)) return "ATTACKER";
+        else return "PURPLE";
     }
 
     public boolean isHasLeftChemistryStyle() {
@@ -80,5 +87,21 @@ public class FootballPlayer {
 
     public void giveCaptainArmband(){
         isCaptain = true;
+    }
+
+    private FootballPlayersPositions setFootballPlayerPosition(String position){
+        if(position.equalsIgnoreCase("GOALKEEPER")) return FootballPlayersPositions.GOALKEEPER;
+        else if(position.equalsIgnoreCase("DEFENDER")) return FootballPlayersPositions.DEFENDER;
+        else if(position.equalsIgnoreCase("MIDFIELDER")) return FootballPlayersPositions.MIDFIELDER;
+        else if(position.equalsIgnoreCase("ATTACKER")) return FootballPlayersPositions.ATTACKER;
+        else return FootballPlayersPositions.PURPLE;
+    }
+
+    public void printFootballPlayer(){
+        PrintFunctionsForFootballPlayers.printFootballPlayerOnOneRow(this);
+    }
+
+    public void printFootballPlayerAsCard(){
+        PrintFunctionsForFootballPlayers.printFootballPlayerAsCard(this);
     }
 }
