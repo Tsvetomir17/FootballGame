@@ -3,13 +3,12 @@ package Game;
 import FootballPlayer.FootballPlayer;
 import Player.Player;
 
-import java.sql.SQLOutput;
+import java.sql.*;
 import java.util.*;
 
 public class Game {
     private int playersInTheGameSize;
-    private List<FootballPlayer> theFullListOfFootballPlayers;
-//    private List<Keystaff> theFullListOfKeyStaffs;
+    private Stack<FootballPlayer> theFullDeckOfFootballPlayers;
     private Map<String, Player> players;
     private List<String> teamColoursInCurrentOrder;
     private static Game instance = new Game();
@@ -17,6 +16,7 @@ public class Game {
     private Game(){
         players = new HashMap<String, Player>();
         teamColoursInCurrentOrder = new ArrayList<>();
+        theFullDeckOfFootballPlayers = new Stack<>();
     }
 
     public static Game getGameInstance(){
@@ -31,15 +31,7 @@ public class Game {
     }
 
     private void setPlayersInTheGameSize(){
-        Scanner scanner = new Scanner(System.in);
-        int choiceMadeByTheUser = scanner.nextInt();
-
-        while(choiceMadeByTheUser < 2 || choiceMadeByTheUser > 6){
-            System.out.println("Bad input! Please try again:");
-            choiceMadeByTheUser = scanner.nextInt();
-        }
-
-        playersInTheGameSize = choiceMadeByTheUser;
+        playersInTheGameSize = choiceMadeByTheUserValidation(2,6);
     }
 
     private String playersChoosingTeamColoursHelper(List<String> listOfRemainingColours, int indexOfCurrentPlayer){
@@ -47,15 +39,10 @@ public class Game {
         for (int colourIterator = 0; colourIterator < listOfRemainingColours.size(); colourIterator++) {
             System.out.println(colourIterator+1 + ". " + listOfRemainingColours.get(colourIterator));
         }
-        int choice;
         System.out.println("Player" + (indexOfCurrentPlayer + 1) + ", please select the colour of your team: ");
-        Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextInt();
-        while (choice <= 0 || choice > listOfRemainingColours.size()){
-            System.out.println("Bad input! Please choose a valid number: ");
-            choice = scanner.nextInt();
-        }
-        return listOfRemainingColours.get(choice - 1);
+        int choiceByTheUser = choiceMadeByTheUserValidation(0, listOfRemainingColours.size()) - 1;
+
+        return listOfRemainingColours.get(choiceByTheUser);
     }
 
     private void playersChoosingTeamColours(){
@@ -81,13 +68,7 @@ public class Game {
         System.out.println("2. 120M.");
         System.out.println("3.  90M.");
 
-        int choice;
-        Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextInt();
-        while(choice < 1 || choice > 3){
-            System.out.println("Bad input, please try again: ");
-            choice = scanner.nextInt();
-        }
+        int choice = choiceMadeByTheUserValidation(1,3);
 
         if(choice == 1) return 150;
         else if(choice == 2) return 120;
@@ -101,20 +82,89 @@ public class Game {
         }
     }
 
-    public void startGame(){
+    public void startGame() throws SQLException, ClassNotFoundException {
         printStartingMessage();
         setPlayersInTheGameSize();
         playersChoosingTeamColours();
         setEveryPlayerStartingMoney();
+        fillTheListOfFootballPlayers();
+        setTheFootballPlayersDraft();
 
     }
 
-    public void printPlayers(){
-
+    public void printPlayers(List<FootballPlayer> players){
+        for (int i = 0; i < players.size(); i++) {
+            System.out.print((i+1) + ". ");
+            players.get(i).printFootballPlayer();
+        }
     }
 
+    private void fillTheListOfFootballPlayers() throws ClassNotFoundException, SQLException {
 
-//    private void setTheFootballPlayersDraft(){
-//
-//    }
+        Class.forName("org.postgresql.Driver");
+        String url = "jdbc:postgresql://localhost:5432/FootballGamePlayers";
+        String username = "postgres";
+        String password = "password";
+
+        Connection connection = DriverManager.getConnection(url,username,password);
+        String query = "SELECT * FROM \"FootballPlayers\" ORDER BY RANDOM()";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while(resultSet.next()){
+
+            FootballPlayer footballPlayerToPushInTheDeck = new FootballPlayer(
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getInt(4),
+                    resultSet.getString(5),
+                    resultSet.getBoolean(6),
+                    resultSet.getBoolean(7),
+                    resultSet.getBoolean(8),
+                    resultSet.getInt(9),
+                    resultSet.getInt(10)
+            );
+            theFullDeckOfFootballPlayers.push(footballPlayerToPushInTheDeck);
+        }
+    }
+
+    private void setTheFootballPlayersDraft(){
+        List<FootballPlayer> current16PlayersOnTheDraft = new ArrayList<>();
+        int currentIndexForTheTeamToPick = 0;
+        Player currentPlayerToPick;
+        for (int i = 0; i < 1; i++) {
+
+            for (int j = 0; j < 16; j++) {
+                current16PlayersOnTheDraft.add(theFullDeckOfFootballPlayers.pop());
+            }
+
+            while (!current16PlayersOnTheDraft.isEmpty()) {
+                printPlayers(current16PlayersOnTheDraft);
+                currentPlayerToPick = players.get(teamColoursInCurrentOrder.get(currentIndexForTheTeamToPick));
+                System.out.println(currentPlayerToPick.getPlayerColour() + ", it is your turn to pick");
+                int choiceByPlayer = choiceMadeByTheUserValidation(0, current16PlayersOnTheDraft.size()) -1;
+
+                currentPlayerToPick.addFootballPlayerToTheTeam(current16PlayersOnTheDraft.get(choiceByPlayer));
+
+                current16PlayersOnTheDraft.remove(choiceByPlayer);
+                currentIndexForTheTeamToPick = setCurrentIndexForTeamToPick(currentIndexForTheTeamToPick);
+            }
+        }
+    }
+
+    private int choiceMadeByTheUserValidation(int minimumValue, int maximumValue){
+        int choice;
+        Scanner scanner = new Scanner(System.in);
+        choice = scanner.nextInt();
+        while (choice < minimumValue || choice > maximumValue) {
+            System.out.println("Bad input! Try again: ");
+            choice = scanner.nextInt();
+        }
+
+        return choice;
+    }
+
+    private int setCurrentIndexForTeamToPick(int index){
+        return ++index == playersInTheGameSize ? 0 : index;
+    }
 }
