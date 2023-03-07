@@ -5,6 +5,9 @@ import Player.Player;
 
 
 public class SimVariations {
+    private final static int FIRST_LEVEL_OVERALL_RATING = 40;
+    private final static int SECOND_LEVEL_OVERALL_RATING = 60;
+    private final static int THIRD_LEVEL_OVERALL_RATING = 80;
     private static final Dice dice = new Dice(6);
     private static int randomRollDiceOne;
     private static int randomRollDiceTwo;
@@ -12,11 +15,11 @@ public class SimVariations {
     public static void simulateMatch(Player player){
         int playerCurrentOverall = player.getCurrentPlayerOverall();
 
-        if(playerCurrentOverall < 40)
+        if(playerCurrentOverall < FIRST_LEVEL_OVERALL_RATING)
             simulateMatch(player,8,10);
-        else if(playerCurrentOverall < 60)
+        else if(playerCurrentOverall < SECOND_LEVEL_OVERALL_RATING)
             simulateMatch(player,7,9);
-        else if(playerCurrentOverall< 80)
+        else if(playerCurrentOverall< THIRD_LEVEL_OVERALL_RATING)
             simulateMatch(player,6,8);
         else
             simulateMatch(player,5,7);

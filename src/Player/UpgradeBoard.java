@@ -1,8 +1,8 @@
 package Player;
 
-public class UpgradeBoard {
-    final static int MAX_LEVEL_UPGRADE = 3;
+import static GameModes.FinalVariables.MAX_LEVEL_UPGRADE;
 
+public class UpgradeBoard {
     private int trainingCentreLevel;
     private int scoutingStaffLevel;
     private int stadiumLevel;

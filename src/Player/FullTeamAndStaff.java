@@ -5,9 +5,12 @@ import FootballPlayer.FootballPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static GameModes.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
+
+
 public class FullTeamAndStaff {
-    final static int MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE = 23;
-    final static int MAX_KEYSTAFF_IN_TEAM_SIZE = 3;
+
+//    final static int MAX_KEYSTAFF_IN_TEAM_SIZE = 3;
 
     private List<FootballPlayer> fullTeamOfFootballPlayers;
 //    private List<KeyStaff> keystaff

@@ -1,23 +1,19 @@
 package FootballPlayer;
 
 public class FootballPlayer {
-    final static int MAX_FOOTBALL_PLAYER_RATING = 6;
     private String footballPlayerName;
     private int currentFootballPlayerRating;
     private int maxFootballPlayerRating;
     private FootballPlayersPositions footballPlayerPosition;
-
     private boolean hasLeftChemistryStyle;
     private boolean hasRightChemistryStyle;
     private boolean isCaptain;
-    private boolean isPowerhouse;
-
     private int scoutingPrice;
     private int deadlineDayPrice;
 
     public FootballPlayer(String footballPlayerName, int currentFootballPlayerRating, int maxFootballPlayerRating,
                           FootballPlayersPositions footballPlayerPosition, boolean hasLeftChemistryStyle,
-                          boolean hasRightChemistryStyle, boolean isCaptain, boolean isPowerhouse, int scoutingPrice,
+                          boolean hasRightChemistryStyle, boolean isCaptain, int scoutingPrice,
                           int deadlineDayPrice) {
         this.footballPlayerName = footballPlayerName;
         this.currentFootballPlayerRating = currentFootballPlayerRating;
@@ -26,7 +22,6 @@ public class FootballPlayer {
         this.hasLeftChemistryStyle = hasLeftChemistryStyle;
         this.hasRightChemistryStyle = hasRightChemistryStyle;
         this.isCaptain = isCaptain;
-        this.isPowerhouse = isPowerhouse;
         this.scoutingPrice = scoutingPrice;
         this.deadlineDayPrice = deadlineDayPrice;
     }
@@ -57,10 +52,6 @@ public class FootballPlayer {
 
     public boolean isCaptain() {
         return isCaptain;
-    }
-
-    public boolean isPowerhouse() {
-        return isPowerhouse;
     }
 
     public int getScoutingPrice() {
