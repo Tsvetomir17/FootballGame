@@ -8,17 +8,12 @@ import java.util.List;
 import static GameModes.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
 
 
-public class FullTeamAndStaff {
-
-//    final static int MAX_KEYSTAFF_IN_TEAM_SIZE = 3;
+public class FullTeam {
 
     private List<FootballPlayer> fullTeamOfFootballPlayers;
-//    private List<KeyStaff> keystaff
 
-
-    public FullTeamAndStaff() {
+    public FullTeam() {
         this.fullTeamOfFootballPlayers = new ArrayList<>(MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE);
-//        this.keystaff = new ArrayList<>(MAX_KEYSTAFF_IN_TEAM_SIZE);
     }
 
     public boolean addPlayerToTheTeam(FootballPlayer playerToAdd){
@@ -30,5 +25,9 @@ public class FullTeamAndStaff {
         return true;
     }
 
-    //addKeystaff
+    public void printFullTeam(){
+        for (FootballPlayer player : fullTeamOfFootballPlayers) {
+            player.printFootballPlayer();
+        }
+    }
 }
