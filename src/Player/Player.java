@@ -1,16 +1,18 @@
 package Player;
 
+import FootballPlayer.FootballPlayer;
+
 public class Player {
     private PlayerTeamColours teamColour;
     private UpgradeBoard playerUpgradeBoard;
-    private FullTeamAndStaff fullTeamAndStaff;
+    private FullTeam fullTeam;
     private int playerMoney;
     private int currentPlayerOverall;
 
     public Player(String colour){
         teamColour= playerSetTeamColour(colour);
         playerUpgradeBoard = new UpgradeBoard();
-        fullTeamAndStaff = new FullTeamAndStaff();
+        fullTeam = new FullTeam();
         currentPlayerOverall = 0;
     }
 
@@ -35,5 +37,14 @@ public class Player {
 
     public int getCurrentPlayerOverall(){
         return currentPlayerOverall;
+    }
+
+    public void addFootballPlayerToTheTeam(FootballPlayer player){
+        fullTeam.addPlayerToTheTeam(player);
+        currentPlayerOverall += player.getCurrentFootballPlayerRating();
+    }
+
+    public void printFullTeam(){
+        fullTeam.printFullTeam();
     }
 }
