@@ -5,7 +5,7 @@ public interface FinalVariables {
     int SECOND_LEVEL_OVERALL_RATING = 60;
     int THIRD_LEVEL_OVERALL_RATING = 80;
     int MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE = 23;
-    int MAX_LEVEL_UPGRADE = 3;
+    int MAX_LEVEL_UPGRADE = 4;
 
     Character EMPTY_STAR_FOR_FOOTBALL_PLAYERS = '\u2606';
     Character FULL_STAR_FOR_FOOTBALL_PLAYERS = '\u2605';
@@ -13,5 +13,22 @@ public interface FinalVariables {
     Character CHECK_MARK_POINTING_IF_FOOTBALL_PLAYER_HAS_CHEMISTRY_STYLE_FROM_THAT_SIDE = '\u2713';
 
     int FOOTBALL_PLAYER_CARD_MAXIMUM_ROW_SIZE = 13;
+    int DRAFT_SIZE = 16;
 
+    int FIRST_TRAINING_CENTRE_AND_SCOUTING_UPGRADE_PRICE = 15;
+    int FIRST_STADIUM_UPGRADE_PRICE = 20;
+    int INITIAL_STEP_FOR_UPGRADES = 2;
+
+    int NEWLY_PROMOTED_STADIUM_INCOME_STARTING = 20;
+    int ESTABLISHED_STADIUM_INCOME_STARTING = 30;
+    int MID_TABLE_STADIUM_INCOME_STARTING = 40;
+    int TITLE_CONTENDER_STADIUM_INCOME_STARTING = 50;
+    String NEWLY_PROMOTED = "Newly promoted";
+    String ESTABLISHED = "Established";
+    String MID_TABLE = "Mid-table";
+    String TITLE_CONTENDER = "Title contender";
+    int UPGRADES_PER_PLAYER_PER_SEASON = 2;
+    String YOUTH_DEVELOPMENT = "Youth development";
+    String SCOUTING = "Scouting";
+    String STADIUM_INCOME = "Stadium income";
 }
