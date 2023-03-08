@@ -77,18 +77,6 @@ public class FootballPlayer {
         }
     }
 
-    public void giveLeftChemistryStyle(){
-        hasLeftChemistryStyle = true;
-    }
-
-    public void giveRightChemistryStyle(){
-        hasRightChemistryStyle = true;
-    }
-
-    public void giveCaptainArmband(){
-        isCaptain = true;
-    }
-
     private FootballPlayersPositions setFootballPlayerPosition(String position){
         if(position.equalsIgnoreCase("GOALKEEPER")) return FootballPlayersPositions.GOALKEEPER;
         else if(position.equalsIgnoreCase("DEFENDER")) return FootballPlayersPositions.DEFENDER;
