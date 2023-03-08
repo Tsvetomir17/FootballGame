@@ -3,14 +3,10 @@ package GameModes;
 import Game.Dice;
 import Player.Player;
 
+import static GameModes.FinalVariables.*;
+
 
 public class SimVariations {
-    private final static int FIRST_LEVEL_OVERALL_RATING = 40;
-    private final static int SECOND_LEVEL_OVERALL_RATING = 60;
-    private final static int THIRD_LEVEL_OVERALL_RATING = 80;
-    private static final Dice dice = new Dice(6);
-    private static int randomRollDiceOne;
-    private static int randomRollDiceTwo;
 
     public static void simulateMatch(Player player){
         int playerCurrentOverall = player.getCurrentPlayerOverall();
@@ -26,8 +22,8 @@ public class SimVariations {
     }
 
     public static void simulateMatch(Player player, int minimumPointsNotToLose, int pointsNeededToWin){
-        randomRollDiceOne = dice.rollDice();
-        randomRollDiceTwo = dice.rollDice();
+        int randomRollDiceOne = Dice.getInstance().rollDice();
+        int randomRollDiceTwo = Dice.getInstance().rollDice();
 
         System.out.println("You rolled " + randomRollDiceOne + " and " + randomRollDiceTwo);
 
