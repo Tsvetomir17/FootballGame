@@ -3,9 +3,9 @@ package Player;
 import FootballPlayer.FootballPlayer;
 
 public class Player {
-    private PlayerTeamColours teamColour;
-    private UpgradeBoard playerUpgradeBoard;
-    private FullTeam fullTeam;
+    private final PlayerTeamColours teamColour;
+    private final UpgradeBoard playerUpgradeBoard;
+    private final FullTeam fullTeam;
     private int playerMoney;
     private int currentPlayerOverall;
 
@@ -14,6 +14,7 @@ public class Player {
         playerUpgradeBoard = new UpgradeBoard();
         fullTeam = new FullTeam();
         currentPlayerOverall = 0;
+        playerMoney = 0;
     }
 
     private PlayerTeamColours playerSetTeamColour(String colour){
@@ -24,8 +25,15 @@ public class Player {
         else if(colour.equalsIgnoreCase("YELLOW")) return PlayerTeamColours.YELLOW;
         return PlayerTeamColours.PINK;
     }
-    public void setPlayerMoney(int money){
-        playerMoney = money;
+    public void addMoneyToThePlayer(int money){
+        playerMoney += money;
+    }
+
+    public void spendMoney(int money){
+        if(money > playerMoney){
+            throw new IllegalArgumentException("You can not spend more money than you have");
+        }
+        playerMoney -= money;
     }
 
     public int getPlayerMoney(){
@@ -46,5 +54,13 @@ public class Player {
 
     public void printFullTeam(){
         fullTeam.printFullTeam();
+    }
+
+    public UpgradeBoard getPlayerUpgradeBoard(){
+        return playerUpgradeBoard;
+    }
+
+    public FullTeam getFullTeam(){
+        return fullTeam;
     }
 }
