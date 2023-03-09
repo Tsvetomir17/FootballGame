@@ -48,8 +48,7 @@ public class Scouting {
     }
 
     private static void buyPlayer(Player currentPlayer, FootballPlayer scoutedPlayer){
-        currentPlayer.addFootballPlayerToTheTeam(scoutedPlayer);
-        currentPlayer.spendMoney(scoutedPlayer.getScoutingPrice());
+        currentPlayer.addFootballPlayerToTheTeamViaScouting(scoutedPlayer);
         System.out.println("You successfully bought " + scoutedPlayer.getFootballPlayerName() + "!");
     }
 
