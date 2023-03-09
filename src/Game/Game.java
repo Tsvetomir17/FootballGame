@@ -6,6 +6,8 @@ import Player.Player;
 import java.sql.*;
 import java.util.*;
 
+import static Game.DeadlineDay.deadlineDay;
+import static Game.Discarding.discarding;
 import static Game.Draft.setTheFootballPlayersDraft;
 import static Game.GetAllPlayersFromDB.fillTheListOfFootballPlayers;
 import static Game.Scouting.scouting;
@@ -42,8 +44,11 @@ public class Game {
         fillTheListOfFootballPlayers();
         setTheFootballPlayersDraft();
         upgradeFootballPlayers();
+        discarding();
         scouting();
         upgrades();
+        deadlineDay();
+
     }
 
     public static void printFootballPlayers(List<FootballPlayer> players){
