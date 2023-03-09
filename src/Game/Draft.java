@@ -27,7 +27,7 @@ public class Draft {
                 System.out.println(currentPlayerToPick.getPlayerColour() + ", it is your turn to pick: ");
                 int choiceByPlayer = choiceMadeByTheUserValidation(0, currentPlayersInTheDraft.size()) -1;
 
-                currentPlayerToPick.addFootballPlayerToTheTeam(currentPlayersInTheDraft.get(choiceByPlayer));
+                currentPlayerToPick.addFootballPlayerToTheTeamViaDraft(currentPlayersInTheDraft.get(choiceByPlayer));
 
                 currentPlayersInTheDraft.remove(choiceByPlayer);
                 currentIndexForTheTeamToPick = setCurrentIndexForTeamToPick(currentIndexForTheTeamToPick);
