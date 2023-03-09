@@ -21,11 +21,7 @@ public class PlayerDevelopment {
             int maximumStarsToGiveToAPlayer = currentPlayer.getPlayerUpgradeBoard().getTrainingCentreLevel();
             int playersToUpgrade = min(maximumStarsToGiveToAPlayer, maximumPlayersThatCanBeUpgraded(currentPlayer));
 
-            System.out.println("0. Skip");
-            currentPlayer.printFullTeam();
-            System.out.println(currentPlayer.getPlayerColour() + ", it is your time to upgrade!");
-            System.out.println("You can add max " + maximumStarsToGiveToAPlayer + " stars" +
-                    " to " + playersToUpgrade + " players.");
+            printStartingMessageForUpgrading(currentPlayer, maximumStarsToGiveToAPlayer, playersToUpgrade);
 
             for (int j = 0; j < playersToUpgrade; j++) {
 
@@ -41,11 +37,21 @@ public class PlayerDevelopment {
                     continue;
                 }
 
-                currentPlayer.getFullTeam().upgradePlayer(rollTheDiceForThePlayerAndReturnTheNewOneIfTheDiceIsGood(
+                currentPlayer.upgradeFootballPlayer(rollTheDiceForThePlayerAndReturnTheNewOneIfTheDiceIsGood(
                         currentFootballPlayer,maximumStarsToGiveToAPlayer), choiceByPlayer);
                 alreadyTriedToUpgradePlayers.add(currentFootballPlayer.getFootballPlayerName());
             }
         }
+    }
+
+    private static void printStartingMessageForUpgrading(Player currentPlayer, int maximumStarsToGiveToAPlayer, int playersToUpgrade){
+        System.out.println(currentPlayer.getPlayerColour() + ", it is your turn to upgrade your players.");
+        System.out.println("You can choose a player to be upgraded or press '0' to skip this phase");
+        System.out.println("0. Skip");
+        currentPlayer.printFullTeam();
+        System.out.println(currentPlayer.getPlayerColour() + ", it is your time to upgrade!");
+        System.out.println("You can add max " + maximumStarsToGiveToAPlayer + " stars" +
+                " to " + playersToUpgrade + " players.");
     }
 
     private static boolean isThePlayerUpgradedThisSeason(Set<String> alreadyTriedToUpgradePlayers, FootballPlayer player){
