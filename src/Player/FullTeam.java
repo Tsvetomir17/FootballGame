@@ -10,13 +10,13 @@ import static GameModes.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
 
 public class FullTeam {
 
-    private List<FootballPlayer> fullTeamOfFootballPlayers;
+    private final List<FootballPlayer> fullTeamOfFootballPlayers;
 
-    public FullTeam() {
+    FullTeam() {
         this.fullTeamOfFootballPlayers = new ArrayList<>(MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE);
     }
 
-    public void addPlayerToTheTeam(FootballPlayer playerToAdd){
+    void addPlayerToTheTeam(FootballPlayer playerToAdd){
         if(fullTeamOfFootballPlayers.size() == MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE){
             System.out.println("The team is full, you can not add players right now");
             return;
@@ -24,16 +24,20 @@ public class FullTeam {
         fullTeamOfFootballPlayers.add(playerToAdd);
     }
 
-    public void upgradePlayer(FootballPlayer theUpgradedPlayer, int index){
+    void upgradePlayer(FootballPlayer theUpgradedPlayer, int index){
+        removePlayerAtIndex(index);
+        fullTeamOfFootballPlayers.add(index,theUpgradedPlayer);
+    }
+
+    void removePlayerAtIndex(int index){
         if(index < 0 || index >= fullTeamOfFootballPlayers.size()){
             throw new ArrayIndexOutOfBoundsException();
         }
 
         fullTeamOfFootballPlayers.remove(index);
-        fullTeamOfFootballPlayers.add(index,theUpgradedPlayer);
     }
 
-    public void printFullTeam(){
+    void printFullTeam(){
         int iterator = 1;
         for (FootballPlayer player : fullTeamOfFootballPlayers) {
             System.out.print((iterator++) + ". ");
