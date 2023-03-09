@@ -12,13 +12,11 @@ public class UpgradeBoard {
     private int trainingCentrePrice;
     private int scoutingUpgradePrice;
     private int stadiumUpgradePrice;
-    private boolean permanentStar;
     private Map<String,Integer> stadiumIncome;
     public UpgradeBoard(){
         trainingCentreLevel = 1;
         scoutingStaffLevel = 1;
         stadiumLevel = 1;
-        permanentStar = false;
         trainingCentrePrice = FIRST_TRAINING_CENTRE_AND_SCOUTING_UPGRADE_PRICE;
         scoutingUpgradePrice = FIRST_TRAINING_CENTRE_AND_SCOUTING_UPGRADE_PRICE;
         stadiumUpgradePrice = FIRST_STADIUM_UPGRADE_PRICE;
@@ -53,8 +51,6 @@ public class UpgradeBoard {
 
         trainingCentreLevel += 1;
         trainingCentrePrice *= INITIAL_STEP_FOR_UPGRADES;
-        if(trainingCentreLevel == MAX_LEVEL_UPGRADE)
-            permanentStar = true;
     }
 
     public void upgradeScoutingStaff(){
@@ -98,10 +94,6 @@ public class UpgradeBoard {
 
     public int getStadiumUpgradePrice() {
         return stadiumUpgradePrice;
-    }
-
-    public boolean isPermanentStar() {
-        return permanentStar;
     }
 
     private void printStadiumIncome(Map<String,Integer> stadiumIncome){
