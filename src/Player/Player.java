@@ -47,11 +47,35 @@ public class Player {
         return currentPlayerOverall;
     }
 
-    public void addFootballPlayerToTheTeam(FootballPlayer player){
+    private void purchaseFootballPlayer(FootballPlayer player, int price){
         fullTeam.addPlayerToTheTeam(player);
         currentPlayerOverall += player.getCurrentFootballPlayerRating();
+        playerMoney -= price;
     }
 
+    public void addFootballPlayerToTheTeamViaDraft(FootballPlayer player){
+        purchaseFootballPlayer(player, 0);
+    }
+
+    public void addFootballPlayerToTheTeamViaScouting(FootballPlayer player){
+        purchaseFootballPlayer(player, player.getScoutingPrice());
+    }
+
+    public void addFootballPlayerToTheTeamViaDeadlineDay(FootballPlayer player, int price){
+        purchaseFootballPlayer(player,price);
+    }
+
+    public void discardFootballPlayerFromTheTeam(int indexOfThePlayer){
+        currentPlayerOverall -= fullTeam.getFootballPlayerAtIndex(indexOfThePlayer).getCurrentFootballPlayerRating();
+        playerMoney += fullTeam.getFootballPlayerAtIndex(indexOfThePlayer).getScoutingPrice();
+        fullTeam.removePlayerAtIndex(indexOfThePlayer);
+    }
+
+    public void upgradeFootballPlayer(FootballPlayer footballPlayer, int index){
+        currentPlayerOverall = currentPlayerOverall + footballPlayer.getCurrentFootballPlayerRating() -
+                fullTeam.getFootballPlayerAtIndex(index).getCurrentFootballPlayerRating();
+        fullTeam.upgradePlayer(footballPlayer,index);
+    }
     public void printFullTeam(){
         fullTeam.printFullTeam();
     }
