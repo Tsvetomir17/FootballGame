@@ -10,6 +10,7 @@ import static Game.DeadlineDay.deadlineDay;
 import static Game.Discarding.discarding;
 import static Game.Draft.setTheFootballPlayersDraft;
 import static Game.GetAllPlayersFromDB.fillTheListOfFootballPlayers;
+import static Game.LineUp.setLineUp;
 import static Game.Scouting.scouting;
 import static Game.SetPlayersColoursAndMoney.*;
 import static Game.PlayerDevelopment.upgradeFootballPlayers;
@@ -48,7 +49,7 @@ public class Game {
         scouting();
         upgrades();
         deadlineDay();
-
+        setLineUp();
     }
 
     public static void printFootballPlayers(List<FootballPlayer> players){
@@ -80,4 +81,6 @@ public class Game {
     public static int getPlayersInTheGameSize(){
         return playersInTheGameSize;
     }
+
+
 }
