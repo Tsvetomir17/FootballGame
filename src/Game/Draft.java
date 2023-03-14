@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Game.Game.*;
-import static GameModes.FinalVariables.DRAFT_SIZE;
+import static Game.FinalVariables.DRAFT_SIZE;
 
 public class Draft {
 

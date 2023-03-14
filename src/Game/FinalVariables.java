@@ -1,4 +1,4 @@
-package GameModes;
+package Game;
 
 public interface FinalVariables {
     int FIRST_LEVEL_OVERALL_RATING = 40;

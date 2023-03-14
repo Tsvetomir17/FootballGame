@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static Game.Game.*;
-import static GameModes.FinalVariables.*;
+import static Game.FinalVariables.*;
 
 public class Upgrades {
 

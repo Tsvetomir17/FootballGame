@@ -1,7 +1,5 @@
 package FootballPlayer;
 
-import static GameModes.FinalVariables.*;
-
 public class FootballPlayer {
     private String footballPlayerName;
     private int currentFootballPlayerRating;

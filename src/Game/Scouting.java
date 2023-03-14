@@ -4,7 +4,7 @@ import FootballPlayer.FootballPlayer;
 import Player.Player;
 
 import static Game.Game.*;
-import static GameModes.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
+import static Game.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
 
 public class Scouting {
 

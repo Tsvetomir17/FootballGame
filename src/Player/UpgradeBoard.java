@@ -3,7 +3,7 @@ package Player;
 import java.util.HashMap;
 import java.util.Map;
 
-import static GameModes.FinalVariables.*;
+import static Game.FinalVariables.*;
 
 public class UpgradeBoard {
     private int trainingCentreLevel;

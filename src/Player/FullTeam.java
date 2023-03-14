@@ -1,14 +1,11 @@
 package Player;
 
 import FootballPlayer.FootballPlayer;
-import FootballPlayer.FootballPlayersPositions;
 import FootballPlayer.FootballPlayerComparator;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import static GameModes.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
+import static Game.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
 
 
 public class FullTeam {

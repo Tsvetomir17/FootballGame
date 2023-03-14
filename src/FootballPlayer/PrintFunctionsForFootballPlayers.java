@@ -1,6 +1,6 @@
 package FootballPlayer;
 
-import static GameModes.FinalVariables.*;
+import static Game.FinalVariables.*;
 
 public class PrintFunctionsForFootballPlayers {
     public static void printFootballPlayerAsCard(FootballPlayer player){
