@@ -1,9 +1,9 @@
-package GameModes;
+package Season;
 
 import Game.Dice;
 import Player.Player;
 
-import static GameModes.FinalVariables.*;
+import static Game.FinalVariables.*;
 
 
 public class SimVariations {
