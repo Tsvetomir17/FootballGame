@@ -34,9 +34,4 @@ public interface FinalVariables {
 
     int MINIMUM_TEAM_SIZE = 11;
 
-    String GOALKEEPER_STRING = "GOALKEEPER";
-    String DEFENDER_STRING = "DEFENDER";
-    String MIDFIELDER_STRING = "MIDFIELDER";
-    String ATTACKER_STRING = "ATTACKER";
-    String PURPLE_STRING = "PURPLE";
 }
