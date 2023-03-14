@@ -1,8 +1,11 @@
 package Player;
 
 import FootballPlayer.FootballPlayer;
-
+import FootballPlayer.FootballPlayersPositions;
+import FootballPlayer.FootballPlayerComparator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static GameModes.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
@@ -20,17 +23,18 @@ public class FullTeam {
         this.fullTeamOfFootballPlayers = new ArrayList<>(MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE);
     }
 
-    void addPlayerToTheTeam(FootballPlayer playerToAdd){
+    public void addPlayerToTheTeam(FootballPlayer playerToAdd){
         if(fullTeamOfFootballPlayers.size() == MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE){
             System.out.println("The team is full, you can not add players right now");
             return;
         }
         fullTeamOfFootballPlayers.add(playerToAdd);
-    }
 
+        fullTeamOfFootballPlayers.sort(new FootballPlayerComparator());
+    }
     void upgradePlayer(FootballPlayer theUpgradedPlayer, int index){
         removePlayerAtIndex(index);
-        fullTeamOfFootballPlayers.add(index,theUpgradedPlayer);
+        addPlayerToTheTeam(theUpgradedPlayer);
     }
 
     void removePlayerAtIndex(int index){
@@ -93,5 +97,9 @@ public class FullTeam {
         FootballPlayer footballPlayer = fullTeamOfFootballPlayers.get(index);
         removePlayerAtIndex(index);
         return footballPlayer;
+    }
+
+    public List<FootballPlayer> getFullTeamOfFootballPlayers(){
+        return fullTeamOfFootballPlayers;
     }
 }
