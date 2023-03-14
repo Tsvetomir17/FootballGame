@@ -9,12 +9,15 @@ public class Player {
     private int playerMoney;
     private int currentPlayerOverall;
 
+    private double captainBoost;
+
     public Player(String colour){
         teamColour= playerSetTeamColour(colour);
         playerUpgradeBoard = new UpgradeBoard();
         fullTeam = new FullTeam();
         currentPlayerOverall = 0;
         playerMoney = 0;
+        captainBoost = 1;
     }
 
     private PlayerTeamColours playerSetTeamColour(String colour){
@@ -86,5 +89,16 @@ public class Player {
 
     public FullTeam getFullTeam(){
         return fullTeam;
+    }
+
+    public double getCaptainBoost() {
+        return captainBoost;
+    }
+
+    public void setCaptainBoost(double captainBoost) {
+        if(captainBoost < 0){
+            throw new IllegalArgumentException();
+        }
+        this.captainBoost = captainBoost;
     }
 }
