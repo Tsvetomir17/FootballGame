@@ -49,6 +49,10 @@ public class FootballPlayer {
         else return "PURPLE";
     }
 
+    public FootballPlayersPositions getFootballPlayerPosition(){
+        return footballPlayerPosition;
+    }
+
     public boolean isHasLeftChemistryStyle() {
         return hasLeftChemistryStyle;
     }
