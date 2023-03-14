@@ -7,6 +7,5 @@ public class Main {
 
         Game game = Game.getGameInstance();
         game.startGame();
-
     }
 }
