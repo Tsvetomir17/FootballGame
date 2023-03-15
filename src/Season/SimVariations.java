@@ -4,11 +4,12 @@ import Game.Dice;
 import Player.Player;
 
 import static Game.FinalVariables.*;
+import static Season.PrintFunctionsForSeason.printForOneSim;
 
 
 public class SimVariations {
 
-    public static void simulateMatch(Player player){
+    public static void simulateMatch(Player player) throws InterruptedException {
         int playerCurrentOverall = player.getCurrentPlayerOverall();
 
         if(playerCurrentOverall < FIRST_LEVEL_OVERALL_RATING)
@@ -21,22 +22,22 @@ public class SimVariations {
             simulateMatch(player,5,7);
     }
 
-    public static void simulateMatch(Player player, int minimumPointsNotToLose, int pointsNeededToWin){
+    public static void simulateMatch(Player player, int minimumPointsNotToLose, int pointsNeededToWin) throws InterruptedException {
         int randomRollDiceOne = Dice.getInstance().rollDice();
         int randomRollDiceTwo = Dice.getInstance().rollDice();
 
-        System.out.println("You rolled " + randomRollDiceOne + " and " + randomRollDiceTwo);
+        printForOneSim(player,randomRollDiceOne,randomRollDiceTwo);
 
         if(randomRollDiceOne + randomRollDiceTwo < minimumPointsNotToLose){
-            System.out.println("You lost the match");
+            System.out.println("You lost the match\n");
         }
         else if(randomRollDiceTwo + randomRollDiceOne >= pointsNeededToWin){
-            System.out.println("You won the match");
-            //give 6 points
+            System.out.println("You won the match\n");
+            player.addPointsForTheCurrentSeason(6);
         }
         else{
-            System.out.println("You made a draw");
-            //give 2 points
+            System.out.println("You made a draw\n");
+            player.addPointsForTheCurrentSeason(2);
         }
     }
 
