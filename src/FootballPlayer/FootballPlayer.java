@@ -1,15 +1,15 @@
 package FootballPlayer;
 
 public class FootballPlayer {
-    private String footballPlayerName;
-    private int currentFootballPlayerRating;
-    private int maxFootballPlayerRating;
-    private FootballPlayersPositions footballPlayerPosition;
-    private boolean hasLeftChemistryStyle;
-    private boolean hasRightChemistryStyle;
-    private boolean isCaptain;
-    private int scoutingPrice;
-    private int deadlineDayPrice;
+    private final String footballPlayerName;
+    private final int currentFootballPlayerRating;
+    private final int maxFootballPlayerRating;
+    private final FootballPlayersPositions footballPlayerPosition;
+    private final boolean hasLeftChemistryStyle;
+    private final boolean hasRightChemistryStyle;
+    private final boolean isCaptain;
+    private final int scoutingPrice;
+    private final int deadlineDayPrice;
 
     public FootballPlayer(String footballPlayerName, int currentFootballPlayerRating, int maxFootballPlayerRating,
                           String footballPlayerPosition, boolean hasLeftChemistryStyle,
@@ -69,14 +69,6 @@ public class FootballPlayer {
 
     public int getDeadlineDayPrice() {
         return deadlineDayPrice;
-    }
-
-    public void upgradePlayerRatingWith(int upgradeAmount){
-        currentFootballPlayerRating += upgradeAmount;
-
-        if(currentFootballPlayerRating > maxFootballPlayerRating){
-            currentFootballPlayerRating = maxFootballPlayerRating;
-        }
     }
 
     private FootballPlayersPositions setFootballPlayerPosition(String position){
