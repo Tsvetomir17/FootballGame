@@ -31,7 +31,6 @@ public interface FinalVariables {
     String YOUTH_DEVELOPMENT = "Youth development";
     String SCOUTING = "Scouting";
     String STADIUM_INCOME = "Stadium income";
-
-    int MINIMUM_TEAM_SIZE = 11;
-
+    int FIRST_PLACE_IN_THE_SEASON_INCOME = 100;
+    int STEP_BEHIND_THE_FIRST_PLACE_FOR_SEASON_INCOME = 10;
 }
