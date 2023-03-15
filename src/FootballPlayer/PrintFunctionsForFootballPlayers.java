@@ -32,17 +32,13 @@ public class PrintFunctionsForFootballPlayers {
     }
 
     private static String getStringWithTheStarsOfThePlayer(FootballPlayer player){
-        String currentFootballPlayerStars = "";
+        StringBuilder currentFootballPlayerStars = new StringBuilder();
         int currentFootballPlayerRating = player.getCurrentFootballPlayerRating();
         int emptyStarsToAdd = player.getMaxFootballPlayerRating() - currentFootballPlayerRating;
 
-        for (int i = 0; i < currentFootballPlayerRating; i++) {
-            currentFootballPlayerStars += FULL_STAR_FOR_FOOTBALL_PLAYERS;
-        }
-        for (int i = 0; i < emptyStarsToAdd; i++) {
-            currentFootballPlayerStars += EMPTY_STAR_FOR_FOOTBALL_PLAYERS;
-        }
-        return currentFootballPlayerStars;
+        currentFootballPlayerStars.append(String.valueOf(FULL_STAR_FOR_FOOTBALL_PLAYERS).repeat(Math.max(0, currentFootballPlayerRating)));
+        currentFootballPlayerStars.append(String.valueOf(EMPTY_STAR_FOR_FOOTBALL_PLAYERS).repeat(Math.max(0, emptyStarsToAdd)));
+        return currentFootballPlayerStars.toString();
     }
 
     private static void printRowTwoForCard(FootballPlayer player){
