@@ -8,8 +8,9 @@ public class Player {
     private final FullTeam fullTeam;
     private int playerMoney;
     private int currentPlayerOverall;
-
+    private int currentPointsInTheSeason;
     private double captainBoost;
+    private int seasonWins;
 
     public Player(String colour){
         teamColour= playerSetTeamColour(colour);
@@ -18,6 +19,7 @@ public class Player {
         currentPlayerOverall = 0;
         playerMoney = 0;
         captainBoost = 1;
+        seasonWins = 0;
     }
 
     private PlayerTeamColours playerSetTeamColour(String colour){
@@ -100,5 +102,25 @@ public class Player {
             throw new IllegalArgumentException();
         }
         this.captainBoost = captainBoost;
+    }
+
+    public int getCurrentPointsInTheSeason() {
+        return currentPointsInTheSeason;
+    }
+
+    public void setCurrentPointsInTheSeason(int currentPointsInTheSeason) {
+        this.currentPointsInTheSeason = currentPointsInTheSeason;
+    }
+
+    public void addPointsForTheCurrentSeason(int pointsToAdd){
+        this.currentPointsInTheSeason += pointsToAdd;
+    }
+
+    public void addWinToThePlayer(){
+        seasonWins++;
+    }
+
+    public int getSeasonWins() {
+        return seasonWins;
     }
 }
