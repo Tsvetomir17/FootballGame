@@ -12,7 +12,7 @@ import static Game.FinalVariables.DRAFT_SIZE;
 public class Draft {
 
     public static void setTheFootballPlayersDraft(){
-        List<FootballPlayer> currentPlayersInTheDraft = new ArrayList<>();
+        List<FootballPlayer> currentPlayersInTheDraft;
         int currentIndexForTheTeamToPick = 0;
         Player currentPlayerToPick;
         for (int i = 0; i < getPlayersInTheGameSize(); i++) {
@@ -21,12 +21,11 @@ public class Draft {
 
             while (!currentPlayersInTheDraft.isEmpty()) {
 
-                printFootballPlayersAsCards(currentPlayersInTheDraft);
+                printFootballPlayers(currentPlayersInTheDraft);
 
                 currentPlayerToPick = players.get(teamColoursInCurrentOrder.get(currentIndexForTheTeamToPick));
                 System.out.println(currentPlayerToPick.getPlayerColour() + ", it is your turn to pick: ");
-                //int choiceByPlayer = choiceMadeByTheUserValidation(0, currentPlayersInTheDraft.size()) -1;
-                int choiceByPlayer = 0;
+                int choiceByPlayer = choiceMadeByTheUserValidation(0, currentPlayersInTheDraft.size()) -1;
                 currentPlayerToPick.addFootballPlayerToTheTeamViaDraft(currentPlayersInTheDraft.get(choiceByPlayer));
 
                 currentPlayersInTheDraft.remove(choiceByPlayer);
