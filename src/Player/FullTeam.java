@@ -16,8 +16,15 @@ public class FullTeam {
     private double midfieldOverall;
     private double attackOverall;
 
-    FullTeam() {
+    public FullTeam() {
         this.fullTeamOfFootballPlayers = new ArrayList<>(MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE);
+    }
+
+    public FullTeam(FullTeam fullTeam){
+        this.fullTeamOfFootballPlayers = new ArrayList<>(fullTeam.fullTeamOfFootballPlayers);
+        this.defenceOverall = fullTeam.defenceOverall;
+        this.midfieldOverall = fullTeam.midfieldOverall;
+        this.attackOverall = fullTeam.attackOverall;
     }
 
     public void addPlayerToTheTeam(FootballPlayer playerToAdd){
