@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Dice {
     private final int number;
-    private Random random;
+    private final Random random;
 
     private static final Dice instance = new Dice();
 
