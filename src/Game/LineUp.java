@@ -35,12 +35,12 @@ public class LineUp {
         System.out.println("5. 4-3-3");
     }
 
-    private static int playerChoiceForFormation(Player currentPlayer){
+    private static int playerChoiceForFormation(){
         return choiceMadeByTheUserValidation(0,5);
     }
 
     private static void playerChoosingFormation(Player currentPlayer){
-        int choice = playerChoiceForFormation(currentPlayer);
+        int choice = playerChoiceForFormation();
 
         switch (choice) {
             case 1 -> choosingStartingEleven(currentPlayer, 3, 5, 2);
@@ -52,10 +52,10 @@ public class LineUp {
     }
 
     private static void choosingStartingEleven(Player currentPlayer, int defSize, int midSize, int attSize){
-        FullTeam playerSquad = currentPlayer.getFullTeam();
-        List<FootballPlayer> defenceRow = new ArrayList<FootballPlayer>();
-        List<FootballPlayer> midfieldRow = new ArrayList<FootballPlayer>();
-        List<FootballPlayer> attackRow = new ArrayList<FootballPlayer>();
+        FullTeam playerSquad = new FullTeam(currentPlayer.getFullTeam());
+        List<FootballPlayer> defenceRow = new ArrayList<>();
+        List<FootballPlayer> midfieldRow = new ArrayList<>();
+        List<FootballPlayer> attackRow = new ArrayList<>();
 
         fillLinesInLineUp(playerSquad,defSize,midSize,attSize,defenceRow,midfieldRow,attackRow);
 
