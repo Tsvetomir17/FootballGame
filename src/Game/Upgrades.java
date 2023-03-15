@@ -154,7 +154,7 @@ public class Upgrades {
                     playerChoiceAndUpgrade(upgradedThisSeason, player);
                 }
                 break;
-            default: return;
+            default:
         }
     }
 
