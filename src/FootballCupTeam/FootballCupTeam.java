@@ -1,4 +1,4 @@
-package Game;
+package FootballCupTeam;
 
 public class FootballCupTeam {
 
@@ -28,5 +28,13 @@ public class FootballCupTeam {
 
     public int getAttack() {
         return attack;
+    }
+
+    public void printTeam(){
+        System.out.println(name);
+        System.out.println("Defence:  " + defence);
+        System.out.println("Midfield: " + midfield);
+        System.out.println("Attack:   " + attack);
+        System.out.println();
     }
 }

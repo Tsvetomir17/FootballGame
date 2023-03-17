@@ -1,4 +1,4 @@
-package Season;
+package Game.Season;
 
 import Player.Player;
 
@@ -32,6 +32,7 @@ public class PrintFunctionsForSeason {
         System.out.println("SIM for " + player.getPlayerColour() + " team");
         Thread.sleep(2000);
         System.out.println("You rolled " + diceNumberOne + " and " + diceNumberTwo);
+        Thread.sleep(1000);
     }
 
     public static void printStatusLevels(){
@@ -67,5 +68,6 @@ public class PrintFunctionsForSeason {
         System.out.println("You have " + lineStats + " in this line");
         Thread.sleep(2000);
         System.out.println("You rolled " + diceOne + " and " + diceTwo + '\n');
+        Thread.sleep(1000);
     }
 }

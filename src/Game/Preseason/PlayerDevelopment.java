@@ -1,6 +1,7 @@
-package Game;
+package Game.Preseason;
 
 import FootballPlayer.FootballPlayer;
+import Game.Dice;
 import Player.Player;
 
 import java.sql.*;
@@ -12,10 +13,10 @@ import static java.lang.Math.min;
 
 public class PlayerDevelopment {
 
-    public static void upgradeFootballPlayers() throws SQLException, ClassNotFoundException {
-        for (int i = 0; i < players.size(); i++) {
+    public static void upgradeFootballPlayers() throws SQLException, ClassNotFoundException, InterruptedException {
+        for (int i = 0; i < getPlayers().size(); i++) {
 
-            Player currentPlayer = players.get(teamColoursInCurrentOrder.get(i));
+            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
             Set<String> alreadyTriedToUpgradePlayers = new HashSet<>();
 
             int maximumStarsToGiveToAPlayer = currentPlayer.getPlayerUpgradeBoard().getTrainingCentreLevel();
@@ -83,9 +84,12 @@ public class PlayerDevelopment {
     }
 
     private static FootballPlayer rollTheDiceForThePlayerAndReturnTheNewOneIfTheDiceIsGood
-            (FootballPlayer footballPlayer,int maximumStarsToGive) throws SQLException, ClassNotFoundException {
+            (FootballPlayer footballPlayer,int maximumStarsToGive) throws SQLException, ClassNotFoundException, InterruptedException {
         int rolledNumber = Dice.getInstance().rollDice();
+        System.out.println("Rolling...");
+        Thread.sleep(1500);
         System.out.println("You rolled " + rolledNumber + '!');
+        Thread.sleep(1000);
 
         if(rolledNumber > footballPlayer.getCurrentFootballPlayerRating()){
             int upgradeVariable = min(maximumStarsToGive + footballPlayer.getCurrentFootballPlayerRating(),

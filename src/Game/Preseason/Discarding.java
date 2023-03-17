@@ -1,4 +1,4 @@
-package Game;
+package Game.Preseason;
 
 import Player.Player;
 
@@ -9,7 +9,7 @@ public class Discarding {
     public static void discarding(){
         for (int i = 0; i < getPlayersInTheGameSize(); i++) {
 
-            Player currentPlayer = players.get(teamColoursInCurrentOrder.get(i));
+            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
             printStartingMessage(currentPlayer);
             int choiceByPlayer = choiceMadeByTheUserValidation(-1,currentPlayer.getFullTeam().getFullTeamSize());
             while (choiceByPlayer != 0){

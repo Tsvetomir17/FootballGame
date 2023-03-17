@@ -1,4 +1,4 @@
-package Game;
+package Game.Preseason;
 
 import FootballPlayer.FootballPlayer;
 import Player.Player;
@@ -16,7 +16,8 @@ public class DeadlineDay {
 
         for (int i = 0; i < playersThatWillAppearOnDeadlineDay; i++) {
 
-            FootballPlayer currentFootballPlayerOnDeadlineDay = getNextFootballPlayerForDeadlineDay();
+            FootballPlayer currentFootballPlayerOnDeadlineDay = getTheTopPlayerFromTheDeck();
+            currentFootballPlayerOnDeadlineDay.printFootballPlayerAsCard();
             int currentToBid = currentFootballPlayerOnDeadlineDay.getDeadlineDayPrice();
 
             List<Player> playersThatBidForTheCurrentFootballPlayer =
@@ -26,11 +27,6 @@ public class DeadlineDay {
             biddingBetweenThePlayersThatParticipateInTheBidding(playersThatBidForTheCurrentFootballPlayer,
                     currentFootballPlayerOnDeadlineDay,currentToBid);
         }
-    }
-
-    private static FootballPlayer getNextFootballPlayerForDeadlineDay(){
-
-        return theFullDeckOfFootballPlayers.pop();
     }
 
     private static void biddingBetweenThePlayersThatParticipateInTheBidding
@@ -60,14 +56,14 @@ public class DeadlineDay {
     private static void purchasePlayer(Player player, FootballPlayer footballPlayer, int price){
         player.addFootballPlayerToTheTeamViaDeadlineDay(footballPlayer,price);
         System.out.println(player.getPlayerColour());
-        System.out.println("You have successfully purchased " + footballPlayer.getFootballPlayerName());
+        System.out.println("You have successfully purchased " + footballPlayer.getFootballPlayerName() + " for " + price +  "M.");
         System.out.println();
         System.out.println();
     }
     private static List<Player> goingToParticipateInTheBidding(FootballPlayer footballPlayer, int currentToBid){
         List<Player> playersThatBidForTheCurrentFootballPlayer = new ArrayList<>();
         for (int j = 0; j < getPlayersInTheGameSize(); j++) {
-            Player currentPlayer = players.get(teamColoursInCurrentOrder.get(j));
+            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(j));
             if(playerChoiceToBidOrSkip(currentPlayer,footballPlayer,currentToBid)){
                 playersThatBidForTheCurrentFootballPlayer.add(currentPlayer);
                 currentToBid++;

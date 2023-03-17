@@ -97,10 +97,10 @@ public class UpgradeBoard {
     }
 
     private void printStadiumIncome(Map<String,Integer> stadiumIncome){
-        System.out.println("    Newly promoted  " + stadiumIncome.get(NEWLY_PROMOTED));
-        System.out.println("    Established     " + stadiumIncome.get(ESTABLISHED));
-        System.out.println("    Mid-table       " + stadiumIncome.get(MID_TABLE));
-        System.out.println("    Title contender " + stadiumIncome.get(TITLE_CONTENDER));
+        System.out.println("    Newly promoted  " + stadiumIncome.get(NEWLY_PROMOTED) + "M.");
+        System.out.println("    Established     " + stadiumIncome.get(ESTABLISHED)  + "M.");
+        System.out.println("    Mid-table       " + stadiumIncome.get(MID_TABLE)  + "M.");
+        System.out.println("    Title contender " + stadiumIncome.get(TITLE_CONTENDER)  + "M.");
     }
     
     public void printStadiumIncome(){
@@ -110,6 +110,13 @@ public class UpgradeBoard {
         if(stadiumLevel == MAX_LEVEL_UPGRADE) return;
         printStadiumIncome(nextLevelStadiumIncome());
     }
-    
+
+    public int getStadiumIncomeForTheCurrentPoints(int currentPlayerPoints){
+        if(currentPlayerPoints > 0 && currentPlayerPoints < 40) return stadiumIncome.get(NEWLY_PROMOTED);
+        else if(currentPlayerPoints >= 40 && currentPlayerPoints < 60) return stadiumIncome.get(ESTABLISHED);
+        else if(currentPlayerPoints >= 60 && currentPlayerPoints < 79) return stadiumIncome.get(MID_TABLE);
+        else if(currentPlayerPoints >= 80) return stadiumIncome.get(TITLE_CONTENDER);
+        else throw new IllegalArgumentException();
+    }
 
 }

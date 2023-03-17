@@ -1,10 +1,10 @@
-package Season;
+package Game.Season;
 
 import Game.Dice;
 import Player.Player;
 
 import static Game.FinalVariables.*;
-import static Season.PrintFunctionsForSeason.printForOneSim;
+import static Game.Season.PrintFunctionsForSeason.printForOneSim;
 
 
 public class SimVariations {

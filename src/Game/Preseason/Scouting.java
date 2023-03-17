@@ -1,4 +1,4 @@
-package Game;
+package Game.Preseason;
 
 import FootballPlayer.FootballPlayer;
 import Player.Player;
@@ -10,7 +10,7 @@ public class Scouting {
 
     public static void scouting(){
         for (int i = 0; i < getPlayersInTheGameSize(); i++) {
-            Player currentPlayer = players.get(teamColoursInCurrentOrder.get(i));
+            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
 
             int playersThatCanBeScoutedSize = currentPlayer.getPlayerUpgradeBoard().getScoutingStaffLevel();
             System.out.println(currentPlayer.getPlayerColour() +", it is your turn to do scouting!");
@@ -24,7 +24,7 @@ public class Scouting {
                     break;
                 }
 
-                FootballPlayer scoutedPlayer = theFullDeckOfFootballPlayers.pop();
+                FootballPlayer scoutedPlayer = getTheTopPlayerFromTheDeck();
                 scoutedPlayer.printFootballPlayerAsCard();
 
                 if(!checkIfThePlayerHasEnoughMoney(currentPlayer,scoutedPlayer)) continue;
@@ -49,7 +49,7 @@ public class Scouting {
 
     private static void buyPlayer(Player currentPlayer, FootballPlayer scoutedPlayer){
         currentPlayer.addFootballPlayerToTheTeamViaScouting(scoutedPlayer);
-        System.out.println("You successfully bought " + scoutedPlayer.getFootballPlayerName() + "!");
+        System.out.println("You successfully bought " + scoutedPlayer.getFootballPlayerName() + " for " + scoutedPlayer.getScoutingPrice() + "M. !");
     }
 
     private static boolean checkIfThePlayerHasEnoughMoney(Player currentPlayer, FootballPlayer scoutedPlayer){

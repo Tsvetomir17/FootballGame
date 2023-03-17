@@ -1,13 +1,13 @@
-package Season;
+package Game.Season;
 
 import Game.Dice;
-import Game.FootballCupTeam;
+import FootballCupTeam.FootballCupTeam;
 import Player.Player;
 
 import java.util.Map;
 
-import static Season.PrintFunctionsForSeason.printForEveryOneIsSIM;
-import static Season.PrintFunctionsForSeason.printForLineInPvP;
+import static Game.Season.PrintFunctionsForSeason.printForEveryOneIsSIM;
+import static Game.Season.PrintFunctionsForSeason.printForLineInPvP;
 
 public class FootballMatches {
 
@@ -38,7 +38,7 @@ public class FootballMatches {
             System.out.println(player2.getPlayerColour() + " wins the match against " + player1.getPlayerColour() + '\n');
             player2.addPointsForTheCurrentSeason(6);
         }
-        else{
+        else {
             System.out.println("The match between " + player1.getPlayerColour() + " and " + player2.getPlayerColour() + " ends in a draw\n");
             player1.addPointsForTheCurrentSeason(2);
             player2.addPointsForTheCurrentSeason(2);
@@ -72,8 +72,17 @@ public class FootballMatches {
         printForLineInPvP(playerTwoColour,rolledDiceOne,rolledDiceTwo,playerTwoRowName,player2LineStats);
         player2LineStats += rolledDiceOne + rolledDiceTwo;
 
-        if(player1LineStats > player2LineStats) return 1;
-        else if(player2LineStats > player1LineStats) return 0;
-        else return 0.5;
+        if(player1LineStats > player2LineStats){
+            System.out.println(playerOneColour + " wins in " + playerOneRowName +'\n');
+            return 1;
+        }
+        else if(player2LineStats > player1LineStats){
+            System.out.println(playerTwoColour + " wins in " +  playerTwoRowName +'\n');
+            return 0;
+        }
+        else{
+            System.out.println("Draw in " + playerOneRowName + " -> " + playerTwoRowName+'\n');
+            return 0.5;
+        }
     }
 }

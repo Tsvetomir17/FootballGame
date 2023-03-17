@@ -1,19 +1,20 @@
-package Game;
+package Game.Preseason;
 
 import Player.Player;
 
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static Game.Game.*;
 import static Game.FinalVariables.*;
 
 public class Upgrades {
 
-    public static void upgrades(){
+    public static void upgrades() throws InterruptedException {
         for (int i = 0; i < getPlayersInTheGameSize(); i++) {
-            Player currentPlayer = players.get(teamColoursInCurrentOrder.get(i));
+            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
             System.out.println(currentPlayer.getPlayerColour() + ", it is your turn to upgrade!");
             System.out.println("You have 2 upgrades in total");
 
@@ -84,77 +85,75 @@ public class Upgrades {
         System.out.println("4. Skip");
     }
 
-    private static boolean upgradeTraining(Map<String, Boolean> upgradedThisSeason, Player player){
-        if(upgradedThisSeason.get(YOUTH_DEVELOPMENT)){
+    private static boolean canThisBeUpgraded(Map<String,Boolean> upgradedThisSeason, String toUpgrade, Player player, int price){
+        if(upgradedThisSeason.get(toUpgrade)){
             System.out.println("You already upgraded your youth development this season!");
             return false;
         }
-        if(player.getPlayerMoney() < player.getPlayerUpgradeBoard().getTrainingCentrePrice()){
+        if(player.getPlayerMoney() < price){
             System.out.println("You do not have enough money for that");
             return false;
         }
 
-        player.spendMoney(player.getPlayerUpgradeBoard().getTrainingCentrePrice());
-        player.getPlayerUpgradeBoard().upgradeTrainingCentre();
-        upgradedThisSeason.remove(YOUTH_DEVELOPMENT);
-        upgradedThisSeason.put(YOUTH_DEVELOPMENT,true);
+        return true;
+    }
+    private static void upgradeFacility(Map<String, Boolean> upgradedThisSeason, String toUpgrade, Player player) throws InterruptedException {
+        if(Objects.equals(toUpgrade, YOUTH_DEVELOPMENT)){
+            player.spendMoney(player.getPlayerUpgradeBoard().getTrainingCentrePrice());
+            player.getPlayerUpgradeBoard().upgradeTrainingCentre();
+        }
+        else if(Objects.equals(toUpgrade, SCOUTING)){
+            player.spendMoney(player.getPlayerUpgradeBoard().getScoutingUpgradePrice());
+            player.getPlayerUpgradeBoard().upgradeScoutingStaff();
+        }
+        else if(Objects.equals(toUpgrade, STADIUM_INCOME)){
+            player.spendMoney(player.getPlayerUpgradeBoard().getStadiumUpgradePrice());
+            player.getPlayerUpgradeBoard().upgradeStadium();
+        }
+
+        upgradedThisSeason.remove(toUpgrade);
+        upgradedThisSeason.put(toUpgrade,true);
+
+        System.out.println("The upgrade was purchased successfully");
+        Thread.sleep(1000);
+    }
+    private static boolean upgradeTraining(Map<String, Boolean> upgradedThisSeason, Player player) throws InterruptedException {
+        if(!canThisBeUpgraded(upgradedThisSeason,YOUTH_DEVELOPMENT,player, player.getPlayerUpgradeBoard().getTrainingCentrePrice())) return false;
+        upgradeFacility(upgradedThisSeason,YOUTH_DEVELOPMENT,player);
         return true;
     }
 
-    private static boolean upgradeScouting(Map<String, Boolean> upgradedThisSeason, Player player){
-        if(upgradedThisSeason.get(SCOUTING)){
-            System.out.println("You already upgraded your scouting this season!");
-            return false;
-        }
-        if(player.getPlayerMoney() < player.getPlayerUpgradeBoard().getScoutingUpgradePrice()){
-            System.out.println("You do not have enough money for that");
-            return false;
-        }
-
-        player.spendMoney(player.getPlayerUpgradeBoard().getScoutingUpgradePrice());
-        player.getPlayerUpgradeBoard().upgradeScoutingStaff();
-        upgradedThisSeason.remove(SCOUTING);
-        upgradedThisSeason.put(SCOUTING,true);
+    private static boolean upgradeScouting(Map<String, Boolean> upgradedThisSeason, Player player) throws InterruptedException {
+        if(!canThisBeUpgraded(upgradedThisSeason,SCOUTING,player,player.getPlayerUpgradeBoard().getScoutingUpgradePrice())) return false;
+        upgradeFacility(upgradedThisSeason,SCOUTING,player);
         return true;
     }
 
-    private static boolean upgradeStadium(Map<String, Boolean> upgradedThisSeason, Player player){
-        if(upgradedThisSeason.get(STADIUM_INCOME)){
-            System.out.println("You already upgraded your stadium this season!");
-            return false;
-        }
-        if(player.getPlayerMoney() < player.getPlayerUpgradeBoard().getStadiumUpgradePrice()){
-            System.out.println("You do not have enough money for that");
-            return false;
-        }
-
-        player.spendMoney(player.getPlayerUpgradeBoard().getStadiumUpgradePrice());
-        player.getPlayerUpgradeBoard().upgradeStadium();
-        upgradedThisSeason.remove(STADIUM_INCOME);
-        upgradedThisSeason.put(STADIUM_INCOME,true);
+    private static boolean upgradeStadium(Map<String, Boolean> upgradedThisSeason, Player player) throws InterruptedException {
+        if(!canThisBeUpgraded(upgradedThisSeason,STADIUM_INCOME,player,player.getPlayerUpgradeBoard().getStadiumUpgradePrice())) return false;
+        upgradeFacility(upgradedThisSeason,STADIUM_INCOME,player);
         return true;
     }
 
-    private static void playerChoiceAndUpgrade(Map<String, Boolean> upgradedThisSeason, Player player){
+    private static void playerChoiceAndUpgrade(Map<String, Boolean> upgradedThisSeason, Player player) throws InterruptedException {
 
         int choice = choiceMadeByTheUserValidation(0,4);
         switch (choice){
-            case 1:
+            case 1 -> {
                 if(!upgradeTraining(upgradedThisSeason, player)){
                     playerChoiceAndUpgrade(upgradedThisSeason, player);
                 }
-                break;
-            case 2:
+            }
+            case 2 -> {
                 if(!upgradeScouting(upgradedThisSeason, player)){
                     playerChoiceAndUpgrade(upgradedThisSeason, player);
                 }
-                break;
-            case 3:
+            }
+            case 3 -> {
                 if(!upgradeStadium(upgradedThisSeason, player)){
                     playerChoiceAndUpgrade(upgradedThisSeason, player);
                 }
-                break;
-            default:
+            }
         }
     }
 

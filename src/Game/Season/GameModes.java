@@ -1,12 +1,12 @@
-package Season;
+package Game.Season;
 
 import Player.Player;
 
 import java.util.List;
 import java.util.Map;
 
-import static Season.FootballMatches.*;
-import static Season.PrintFunctionsForSeason.printPlayersStartingPositionsAndCurrentPoints;
+import static Game.Season.FootballMatches.*;
+import static Game.Season.PrintFunctionsForSeason.printPlayersStartingPositionsAndCurrentPoints;
 
 public class GameModes {
 

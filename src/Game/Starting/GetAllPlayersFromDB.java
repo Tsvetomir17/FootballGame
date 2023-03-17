@@ -1,10 +1,10 @@
-package Game;
+package Game.Starting;
 
 import FootballPlayer.FootballPlayer;
 
 import java.sql.*;
 
-import static Game.Game.theFullDeckOfFootballPlayers;
+import static Game.Game.pushPlayerToTheDeck;
 
 public class GetAllPlayersFromDB {
     public static void fillTheListOfFootballPlayers() throws ClassNotFoundException, SQLException {
@@ -32,7 +32,7 @@ public class GetAllPlayersFromDB {
                     resultSet.getInt(9),
                     resultSet.getInt(10)
             );
-            theFullDeckOfFootballPlayers.push(footballPlayerToPushInTheDeck);
+            pushPlayerToTheDeck(footballPlayerToPushInTheDeck);
         }
     }
 }

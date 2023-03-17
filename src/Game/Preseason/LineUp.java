@@ -1,4 +1,4 @@
-package Game;
+package Game.Preseason;
 
 import FootballPlayer.FootballPlayer;
 import FootballPlayer.FootballPlayersPositions;
@@ -12,18 +12,19 @@ import static Game.Game.*;
 
 public class LineUp {
 
-    public static void setLineUp(){
+    public static void setLineUp() throws InterruptedException {
 
         for (int i = 0; i < getPlayersInTheGameSize(); i++) {
-            Player currentPlayer = players.get(teamColoursInCurrentOrder.get(i));
+            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
             printStartingMessage(currentPlayer);
             playerChoosingFormation(currentPlayer);
+            Thread.sleep(1500);
         }
     }
 
     private static void printStartingMessage(Player currentPlayer){
-        System.out.println(currentPlayer.getPlayerColour() + ", choose formation for the next season");
         currentPlayer.getFullTeam().printFullTeam();
+        System.out.println(currentPlayer.getPlayerColour() + ", choose formation for the next season");
         printFormations();
     }
 
@@ -145,10 +146,10 @@ public class LineUp {
     private static FootballPlayer setGoalkeeperForTheLineUp(FullTeam playerSquad){
         if(hasThePlayerAGoalkeeperInTheTeam(playerSquad)){
             System.out.println("Choose your goalkeeper: ");
+            System.out.println("(Note: You can not change the goalkeeper after that choice!)");
             int playerChoice = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize())-1;
             while(!(playerSquad.getFootballPlayerAtIndex(playerChoice).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER)){
                 System.out.println("Choose a goalkeeper: ");
-                System.out.println("(Note: You can not change the goalkeeper after that choice!)");
                 playerChoice = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize())-1;
             }
 

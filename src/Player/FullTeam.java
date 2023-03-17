@@ -36,12 +36,12 @@ public class FullTeam {
 
         fullTeamOfFootballPlayers.sort(new FootballPlayerComparator());
     }
-    void upgradePlayer(FootballPlayer theUpgradedPlayer, int index){
+    public void upgradePlayer(FootballPlayer theUpgradedPlayer, int index){
         removePlayerAtIndex(index);
         addPlayerToTheTeam(theUpgradedPlayer);
     }
 
-    void removePlayerAtIndex(int index){
+    public void removePlayerAtIndex(int index){
         if(index < 0 || index >= fullTeamOfFootballPlayers.size()){
             throw new ArrayIndexOutOfBoundsException();
         }
