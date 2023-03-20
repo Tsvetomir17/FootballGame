@@ -5,7 +5,9 @@ import Player.Player;
 import java.util.List;
 import java.util.Map;
 
-import static Game.Season.FootballMatches.*;
+import static Game.Season.FootballMatches.everyPlayerIsSIM;
+import static Game.Season.FootballMatches.matchPlayerVsPlayer;
+import static Game.Season.FootballMatches.onlyOnePlayerSIM;
 import static Game.Season.PrintFunctionsForSeason.printPlayersStartingPositionsAndCurrentPoints;
 
 public class GameModes {

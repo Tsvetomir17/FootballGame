@@ -9,11 +9,13 @@ public class FootballPlayerComparator implements Comparator<FootballPlayer> {
 
         int posCompare = p1.getFootballPlayerPosition().compareTo(p2.getFootballPlayerPosition());
         if (posCompare != 0) {
+
             return posCompare;
         }
 
         int ratingCompare = Integer.compare(p2.getCurrentFootballPlayerRating(), p1.getCurrentFootballPlayerRating());
         if (ratingCompare != 0) {
+
             return ratingCompare;
         }
 

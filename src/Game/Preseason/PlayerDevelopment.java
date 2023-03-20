@@ -8,12 +8,15 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import static Game.Game.*;
+import static Game.Game.getPlayers;
+import static Game.Game.choiceMadeByTheUserValidation;
+import static Game.Game.getTeamColoursInCurrentOrder;
 import static java.lang.Math.min;
 
 public class PlayerDevelopment {
 
     public static void upgradeFootballPlayers() throws SQLException, ClassNotFoundException, InterruptedException {
+
         for (int i = 0; i < getPlayers().size(); i++) {
 
             Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
@@ -33,6 +36,7 @@ public class PlayerDevelopment {
 
                 FootballPlayer currentFootballPlayer = currentPlayer.getFullTeam().getFootballPlayerAtIndex(choiceByPlayer);
                 if(currentFootballPlayer.getCurrentFootballPlayerRating() == currentFootballPlayer.getMaxFootballPlayerRating()){
+
                     System.out.println("This player reached his maximum potential, try again with another one");
                     j--;
                     continue;
@@ -46,6 +50,7 @@ public class PlayerDevelopment {
     }
 
     private static void printStartingMessageForUpgrading(Player currentPlayer, int maximumStarsToGiveToAPlayer, int playersToUpgrade){
+
         System.out.println(currentPlayer.getPlayerColour() + ", it is your turn to upgrade your players.");
         System.out.println("You can choose a player to be upgraded or press '0' to skip this phase");
         System.out.println("0. Skip");
@@ -56,14 +61,17 @@ public class PlayerDevelopment {
     }
 
     private static boolean isThePlayerUpgradedThisSeason(Set<String> alreadyTriedToUpgradePlayers, FootballPlayer player){
+
         return alreadyTriedToUpgradePlayers.contains(player.getFootballPlayerName());
     }
 
     private static int choiceByUser(Set<String> alreadyTriedToUpgradePlayers, Player currentPlayer){
+
         int choiceByPlayer = choiceMadeByTheUserValidation(-1,currentPlayer.getFullTeam().getFullTeamSize()) -1;
         if(choiceByPlayer == -1) return  choiceByPlayer;
         while(isThePlayerUpgradedThisSeason
                 (alreadyTriedToUpgradePlayers, currentPlayer.getFullTeam().getFootballPlayerAtIndex(choiceByPlayer))){
+
             System.out.println("You already trained that player this season, try another one");
             choiceByPlayer = choiceMadeByTheUserValidation(-1,currentPlayer.getFullTeam().getFullTeamSize()) -1;
             if(choiceByPlayer == -1) return  choiceByPlayer;
@@ -72,19 +80,21 @@ public class PlayerDevelopment {
         return choiceByPlayer;
     }
     private static int maximumPlayersThatCanBeUpgraded(Player player){
+
         int counter = 0;
         for (int i = 0; i < player.getFullTeam().getFullTeamSize(); i++) {
+
             if(player.getFullTeam().getFootballPlayerAtIndex(i).getMaxFootballPlayerRating() ==
-                player.getFullTeam().getFootballPlayerAtIndex(i).getCurrentFootballPlayerRating())
-            {
+                player.getFullTeam().getFootballPlayerAtIndex(i).getCurrentFootballPlayerRating()) {
+
                 counter++;
             }
         }
         return counter;
     }
 
-    private static FootballPlayer rollTheDiceForThePlayerAndReturnTheNewOneIfTheDiceIsGood
-            (FootballPlayer footballPlayer,int maximumStarsToGive) throws SQLException, ClassNotFoundException, InterruptedException {
+    private static FootballPlayer rollTheDiceForThePlayerAndReturnTheNewOneIfTheDiceIsGood(FootballPlayer footballPlayer,int maximumStarsToGive) throws SQLException, ClassNotFoundException, InterruptedException {
+
         int rolledNumber = Dice.getInstance().rollDice();
         System.out.println("Rolling...");
         Thread.sleep(1500);
@@ -92,20 +102,21 @@ public class PlayerDevelopment {
         Thread.sleep(1000);
 
         if(rolledNumber > footballPlayer.getCurrentFootballPlayerRating()){
+
             int upgradeVariable = min(maximumStarsToGive + footballPlayer.getCurrentFootballPlayerRating(),
                                     min(rolledNumber, footballPlayer.getMaxFootballPlayerRating()));
 
             footballPlayer = getThePlayerFromTheDatabaseOfDevelopedPlayers(footballPlayer.getFootballPlayerName(), upgradeVariable);
             footballPlayer.printFootballPlayerAsCard();
         }else{
+
             System.out.println("Good luck next time!");
         }
 
         return footballPlayer;
     }
 
-    private static FootballPlayer getThePlayerFromTheDatabaseOfDevelopedPlayers(String footballPlayerName,
-                                                                                int footballPlayerRating)
+    private static FootballPlayer getThePlayerFromTheDatabaseOfDevelopedPlayers(String footballPlayerName, int footballPlayerRating)
             throws ClassNotFoundException, SQLException {
 
         Class.forName("org.postgresql.Driver");
@@ -119,6 +130,7 @@ public class PlayerDevelopment {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
         resultSet.next();
+
         return new FootballPlayer(
                 resultSet.getString(2),
                 resultSet.getInt(3),

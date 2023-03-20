@@ -12,6 +12,7 @@ import static Game.FinalVariables.DRAFT_SIZE;
 public class Draft {
 
     public static void setTheFootballPlayersDraft(){
+
         List<FootballPlayer> currentPlayersInTheDraft;
         int currentIndexForTheTeamToPick = 0;
 
@@ -23,16 +24,17 @@ public class Draft {
 
                 printFootballPlayers(currentPlayersInTheDraft);
 
-                playerToPickFootballPlayer(getPlayers().get(getTeamColoursInCurrentOrder().get(currentIndexForTheTeamToPick)),
-                        currentPlayersInTheDraft);
+                playerToPickFootballPlayer(getPlayers().get(getTeamColoursInCurrentOrder().get(currentIndexForTheTeamToPick)), currentPlayersInTheDraft);
                 currentIndexForTheTeamToPick = setCurrentIndexForTeamToPick(currentIndexForTheTeamToPick);
             }
         }
     }
 
     private static List<FootballPlayer> setPlayersToBeDrafted(){
+
         List<FootballPlayer> currentPlayersInTheDraft = new ArrayList<>();
         for (int j = 0; j < DRAFT_SIZE; j++) {
+
             currentPlayersInTheDraft.add(getTheTopPlayerFromTheDeck());
         }
 
@@ -40,14 +42,17 @@ public class Draft {
     }
 
     private static void printFootballPlayers(List<FootballPlayer> currentPlayersInTheDraft) {
+
         int iterator = 1;
         for (FootballPlayer player : currentPlayersInTheDraft) {
+
             System.out.print((iterator++) + ". ");
             player.printFootballPlayer();
         }
     }
 
     private static void playerToPickFootballPlayer(Player player, List<FootballPlayer> currentPlayersInTheDraft){
+
         System.out.println(player.getPlayerColour() + ", it is your turn to pick: ");
         int choiceByPlayer = choiceMadeByTheUserValidation(0, currentPlayersInTheDraft.size()) -1;
         player.addFootballPlayerToTheTeamViaDraft(currentPlayersInTheDraft.get(choiceByPlayer));
@@ -57,6 +62,7 @@ public class Draft {
 
 
     private static int setCurrentIndexForTeamToPick(int index){
+
         return ++index == getPlayersInTheGameSize() ? 0 : index;
     }
 }

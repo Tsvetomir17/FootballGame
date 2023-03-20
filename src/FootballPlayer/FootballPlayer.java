@@ -1,10 +1,10 @@
 package FootballPlayer;
 
 public class FootballPlayer {
-    private final String footballPlayerName;
-    private final int currentFootballPlayerRating;
-    private final int maxFootballPlayerRating;
-    private final FootballPlayersPositions footballPlayerPosition;
+    private final String name;
+    private final int currentRating;
+    private final int maxRating;
+    private final FootballPlayersPositions position;
     private final boolean hasLeftChemistryStyle;
     private final boolean hasRightChemistryStyle;
     private final boolean isCaptain;
@@ -15,10 +15,11 @@ public class FootballPlayer {
                           String footballPlayerPosition, boolean hasLeftChemistryStyle,
                           boolean hasRightChemistryStyle, boolean isCaptain, int scoutingPrice,
                           int deadlineDayPrice) {
-        this.footballPlayerName = footballPlayerName;
-        this.currentFootballPlayerRating = currentFootballPlayerRating;
-        this.maxFootballPlayerRating = maxFootballPlayerRating;
-        this.footballPlayerPosition = setFootballPlayerPosition(footballPlayerPosition);
+
+        this.name = footballPlayerName;
+        this.currentRating = currentFootballPlayerRating;
+        this.maxRating = maxFootballPlayerRating;
+        this.position = setFootballPlayerPosition(footballPlayerPosition);
         this.hasLeftChemistryStyle = hasLeftChemistryStyle;
         this.hasRightChemistryStyle = hasRightChemistryStyle;
         this.isCaptain = isCaptain;
@@ -27,63 +28,75 @@ public class FootballPlayer {
     }
 
     public String getFootballPlayerName() {
-        return footballPlayerName;
+
+        return name;
     }
 
     public int getCurrentFootballPlayerRating() {
-        return currentFootballPlayerRating;
+
+        return currentRating;
     }
 
     public int getMaxFootballPlayerRating() {
-        return maxFootballPlayerRating;
+
+        return maxRating;
     }
 
     public String getFootballPlayerPositionAsString() {
 
-        if(footballPlayerPosition.equals(FootballPlayersPositions.GOALKEEPER)) return "GOALKEEPER";
-        else if(footballPlayerPosition.equals(FootballPlayersPositions.DEFENDER)) return "DEFENDER";
-        else if(footballPlayerPosition.equals(FootballPlayersPositions.MIDFIELDER)) return "MIDFIELDER";
-        else if(footballPlayerPosition.equals(FootballPlayersPositions.ATTACKER)) return "ATTACKER";
+        if(position.equals(FootballPlayersPositions.GOALKEEPER)) return "GOALKEEPER";
+        else if(position.equals(FootballPlayersPositions.DEFENDER)) return "DEFENDER";
+        else if(position.equals(FootballPlayersPositions.MIDFIELDER)) return "MIDFIELDER";
+        else if(position.equals(FootballPlayersPositions.ATTACKER)) return "ATTACKER";
         else return "PURPLE";
     }
 
     public FootballPlayersPositions getFootballPlayerPosition(){
-        return footballPlayerPosition;
+
+        return position;
     }
 
     public boolean isHasLeftChemistryStyle() {
+
         return hasLeftChemistryStyle;
     }
 
     public boolean isHasRightChemistryStyle() {
+
         return hasRightChemistryStyle;
     }
 
     public boolean isCaptain() {
+
         return isCaptain;
     }
 
     public int getScoutingPrice() {
+
         return scoutingPrice;
     }
 
     public int getDeadlineDayPrice() {
+
         return deadlineDayPrice;
     }
 
+    public void printFootballPlayer(){
+
+        PrintFunctionsForFootballPlayers.printFootballPlayerOnOneRow(this);
+    }
+
+    public void printFootballPlayerAsCard(){
+
+        PrintFunctionsForFootballPlayers.printFootballPlayerAsCard(this);
+    }
+
     private FootballPlayersPositions setFootballPlayerPosition(String position){
+
         if(position.equalsIgnoreCase("GOALKEEPER")) return FootballPlayersPositions.GOALKEEPER;
         else if(position.equalsIgnoreCase("DEFENDER")) return FootballPlayersPositions.DEFENDER;
         else if(position.equalsIgnoreCase("MIDFIELDER")) return FootballPlayersPositions.MIDFIELDER;
         else if(position.equalsIgnoreCase("ATTACKER")) return FootballPlayersPositions.ATTACKER;
         else return FootballPlayersPositions.PURPLE;
-    }
-
-    public void printFootballPlayer(){
-        PrintFunctionsForFootballPlayers.printFootballPlayerOnOneRow(this);
-    }
-
-    public void printFootballPlayerAsCard(){
-        PrintFunctionsForFootballPlayers.printFootballPlayerAsCard(this);
     }
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 public class PrintFunctionsForSeason {
 
     public static void printStartOfTheSeasonMessage() throws InterruptedException {
+
         System.out.println("Here comes the season");
         System.out.println("There are five matches");
         System.out.println("The matches are played in three thirds and start with midfield versus midfield.");
@@ -24,11 +25,13 @@ public class PrintFunctionsForSeason {
     }
 
     public static void printForEveryOneIsSIM(){
+
         System.out.println("Everyone is simulating their match");
         System.out.println();
     }
 
     public static void printForOneSim(Player player, int diceNumberOne, int diceNumberTwo) throws InterruptedException {
+
         System.out.println("SIM for " + player.getPlayerColour() + " team");
         Thread.sleep(2000);
         System.out.println("You rolled " + diceNumberOne + " and " + diceNumberTwo);
@@ -36,6 +39,7 @@ public class PrintFunctionsForSeason {
     }
 
     public static void printStatusLevels(){
+
         System.out.println("Newly promoted      0-39 overall");
         System.out.println("SIM roll    2-7 Lose    8-9 Draw    10-12 Win\n");
 
@@ -53,6 +57,7 @@ public class PrintFunctionsForSeason {
 
         System.out.println("\n\n");
         for (int i = 0; i < players.size(); i++) {
+
             printStartingPositionAndCurrentPoints(players.get(teamColoursInOrder.get(i)));
         }
         System.out.println("\n\n");
@@ -60,10 +65,12 @@ public class PrintFunctionsForSeason {
     }
 
     private static void printStartingPositionAndCurrentPoints(Player player){
+
         System.out.println(player.getPlayerColour() + "  SP: " + player.getCurrentPlayerOverall() + "  CP: " + player.getCurrentPointsInTheSeason());
     }
 
     public static void printForLineInPvP(String playerColour, int diceOne, int diceTwo, String rowName, double lineStats) throws InterruptedException {
+
         System.out.println(playerColour + " is rolling for " + rowName);
         System.out.println("You have " + lineStats + " in this line");
         Thread.sleep(2000);

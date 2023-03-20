@@ -8,13 +8,17 @@ import Player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Game.Game.*;
+import static Game.Game.getPlayers;
+import static Game.Game.choiceMadeByTheUserValidation;
+import static Game.Game.getPlayersInTheGameSize;
+import static Game.Game.getTeamColoursInCurrentOrder;
 
 public class LineUp {
 
     public static void setLineUp() throws InterruptedException {
 
         for (int i = 0; i < getPlayersInTheGameSize(); i++) {
+
             Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
             printStartingMessage(currentPlayer);
             playerChoosingFormation(currentPlayer);
@@ -23,12 +27,14 @@ public class LineUp {
     }
 
     private static void printStartingMessage(Player currentPlayer){
+
         currentPlayer.getFullTeam().printFullTeam();
         System.out.println(currentPlayer.getPlayerColour() + ", choose formation for the next season");
         printFormations();
     }
 
     private static void printFormations(){
+
         System.out.println("1. 3-5-2");
         System.out.println("2. 3-4-3");
         System.out.println("3. 3-3-4");
@@ -37,13 +43,16 @@ public class LineUp {
     }
 
     private static int playerChoiceForFormation(){
+
         return choiceMadeByTheUserValidation(0,5);
     }
 
     private static void playerChoosingFormation(Player currentPlayer){
+
         int choice = playerChoiceForFormation();
 
         switch (choice) {
+
             case 1 -> choosingStartingEleven(currentPlayer, 3, 5, 2);
             case 2 -> choosingStartingEleven(currentPlayer, 3, 4, 3);
             case 3 -> choosingStartingEleven(currentPlayer, 3, 3, 4);
@@ -53,6 +62,7 @@ public class LineUp {
     }
 
     private static void choosingStartingEleven(Player currentPlayer, int defSize, int midSize, int attSize){
+
         FullTeam playerSquad = new FullTeam(currentPlayer.getFullTeam());
         List<FootballPlayer> defenceRow = new ArrayList<>();
         List<FootballPlayer> midfieldRow = new ArrayList<>();
@@ -70,6 +80,7 @@ public class LineUp {
     }
 
     private static void fillLinesInLineUp(FullTeam playerSquad, int defSize, int midSize, int attSize, List<FootballPlayer> defenceRow, List<FootballPlayer> midfieldRow, List<FootballPlayer> attackRow){
+
         System.out.println("Goalkeeper: ");
         FootballPlayer currentGoalkeeper = setGoalkeeperForTheLineUp(playerSquad);
 
@@ -85,8 +96,10 @@ public class LineUp {
     }
 
     private static void printRowFromTheLineUp(List<FootballPlayer> currentRow){
+
         int currentIndex = 1;
         for (FootballPlayer player : currentRow) {
+
             System.out.print(currentIndex++ + ". ");
             player.printFootballPlayer();
         }
@@ -94,6 +107,7 @@ public class LineUp {
     }
 
     private static void printCurrentLineUp(List<FootballPlayer> defenceRow, List<FootballPlayer> midfieldRow, List<FootballPlayer> attackRow) {
+
         System.out.println("Defence:");
         printRowFromTheLineUp(defenceRow);
         System.out.println("Midfield: ");
@@ -104,11 +118,14 @@ public class LineUp {
     }
     private static void fillOneLineWithPlayersAndReturnStats(FullTeam playerSquad, int lineSize, List<FootballPlayer> currentRow){
 
+
         for (int i = 0; i < lineSize; i++) {
+
             playerSquad.printFullTeam();
             int indexOfSelectedFootballPlayer = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize()) -1;
 
             while(playerSquad.getFootballPlayerAtIndex(indexOfSelectedFootballPlayer).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER){
+
                 System.out.println("You can not add goalkeeper there");
                 indexOfSelectedFootballPlayer = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize()) -1;
             }
@@ -118,10 +135,12 @@ public class LineUp {
     }
 
     private static double calculateLineOverall(List<FootballPlayer> playerSquad, FootballPlayersPositions position){
+
         double result = 0;
         for (int i = 1; i < playerSquad.size(); i++) {
 
             if(playerSquad.get(i).isHasLeftChemistryStyle() && playerSquad.get(i-1).isHasRightChemistryStyle()){
+
                 result++;
             }
 
@@ -131,24 +150,30 @@ public class LineUp {
     }
 
     private static double getFootballPlayersRatingOnCurrentPosition(FootballPlayer player, FootballPlayersPositions position){
+
         if( player.getFootballPlayerPosition() == position ||
             player.getFootballPlayerPosition() == FootballPlayersPositions.PURPLE ||
             player.getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER){
+
             return player.getCurrentFootballPlayerRating();
         }
         else if((player.getFootballPlayerPosition() == FootballPlayersPositions.ATTACKER && position == FootballPlayersPositions.DEFENDER) ||
                 (player.getFootballPlayerPosition() == FootballPlayersPositions.DEFENDER && position == FootballPlayersPositions.ATTACKER)){
+
             return player.getCurrentFootballPlayerRating()-1;
         }
         else return player.getCurrentFootballPlayerRating()-0.5;
     }
 
     private static FootballPlayer setGoalkeeperForTheLineUp(FullTeam playerSquad){
+
         if(hasThePlayerAGoalkeeperInTheTeam(playerSquad)){
+
             System.out.println("Choose your goalkeeper: ");
             System.out.println("(Note: You can not change the goalkeeper after that choice!)");
             int playerChoice = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize())-1;
             while(!(playerSquad.getFootballPlayerAtIndex(playerChoice).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER)){
+
                 System.out.println("Choose a goalkeeper: ");
                 playerChoice = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize())-1;
             }
@@ -161,14 +186,18 @@ public class LineUp {
     }
 
     private static boolean hasThePlayerAGoalkeeperInTheTeam(FullTeam playerSquad){
+
         for (int i = 0; i < playerSquad.getFullTeamSize(); i++) {
+
             if(playerSquad.getFootballPlayerAtIndex(i).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER)
+
                 return true;
         }
         return false;
     }
 
     private static void makeFinalChangesInTheLineUp(FullTeam playerSquad, List<FootballPlayer> defenceRow, List<FootballPlayer> midfieldRow, List<FootballPlayer> attackRow){
+
         printCurrentLineUp(defenceRow, midfieldRow, attackRow);
         printFirstMessageAskingForChangesInLineUp();
 
@@ -179,6 +208,7 @@ public class LineUp {
         choiceByUser = choiceMadeByTheUserValidation(0,3);
 
         switch (choiceByUser) {
+
             case 1 -> makeChangesInRow(playerSquad, defenceRow);
             case 2 -> makeChangesInRow(playerSquad, midfieldRow);
             default -> makeChangesInRow(playerSquad, attackRow);
@@ -188,12 +218,14 @@ public class LineUp {
     }
 
     private static void printFirstMessageAskingForChangesInLineUp(){
+
         System.out.println("Do you want to make changes to this starting line up: ");
         System.out.println("1. Yes");
         System.out.println("2. No");
     }
 
     private static void printMessageChoosingLineForChange(){
+
         System.out.println("Choose a line from the team where you want to make the changes:");
         System.out.println("1. Defence");
         System.out.println("2. Midfield");
@@ -214,6 +246,7 @@ public class LineUp {
     }
 
     private static void swapFootballPlayersFromStartingLineUpAndTheBench(FullTeam playerSquad, int choiceByUserForTheFirstPlayer, int choiceByUserForTheSecondPlayer, List<FootballPlayer> currentRow){
+
         FootballPlayer tempPlayer = currentRow.get(choiceByUserForTheFirstPlayer);
         currentRow.remove(choiceByUserForTheFirstPlayer);
         currentRow.add(choiceByUserForTheFirstPlayer, playerSquad.selectFootballPlayerForLineUpAtIndex(choiceByUserForTheSecondPlayer));
@@ -221,9 +254,11 @@ public class LineUp {
     }
 
     private static int playersChoiceValidationWithAdditionThatTheFootballPlayerIsNotGoalkeeper(List<FootballPlayer> currentPlayers){
+
         int choiceByUser = choiceMadeByTheUserValidation(0, currentPlayers.size()) -1;
         boolean checkIfGoalkeeper = currentPlayers.get(choiceByUser).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER;
         while (checkIfGoalkeeper){
+
             System.out.println("You can not choose goalkeepers in that phase of the game");
             choiceByUser = choiceMadeByTheUserValidation(0, currentPlayers.size()) -1;
             checkIfGoalkeeper = currentPlayers.get(choiceByUser).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER;
@@ -233,10 +268,13 @@ public class LineUp {
     }
 
     private static boolean isThereACaptainForFullBoost(List<FootballPlayer> currentRow, FootballPlayersPositions position){
+
         for (FootballPlayer player : currentRow) {
+
             if (player.isCaptain() && (player.getFootballPlayerPosition() == position ||
                                        player.getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER ||
                                        player.getFootballPlayerPosition() == FootballPlayersPositions.PURPLE)) {
+
                 return true;
             }
         }
@@ -250,10 +288,12 @@ public class LineUp {
     }
 
     private static void setCaptainBoost(Player currentPlayer, List<FootballPlayer> defenceRow, List<FootballPlayer> midfieldRow, List<FootballPlayer> attackRow){
+
         printMessageForCaptainBoost(currentPlayer);
 
         int choiceByUser = choiceMadeByTheUserValidation(0,3);
         switch (choiceByUser){
+
             case 1 -> currentPlayer.getFullTeam().setDefenceOverall(currentPlayer.getFullTeam().getDefenceOverall() + getCaptainBoostOnTheCurrentRow(currentPlayer,defenceRow,FootballPlayersPositions.DEFENDER));
             case 2 ->currentPlayer.getFullTeam().setMidfieldOverall(currentPlayer.getFullTeam().getMidfieldOverall() + getCaptainBoostOnTheCurrentRow(currentPlayer,midfieldRow,FootballPlayersPositions.MIDFIELDER));
             default -> currentPlayer.getFullTeam().setAttackOverall(currentPlayer.getFullTeam().getAttackOverall() + getCaptainBoostOnTheCurrentRow(currentPlayer,attackRow,FootballPlayersPositions.ATTACKER));
@@ -261,6 +301,7 @@ public class LineUp {
     }
 
     private static void printMessageForCaptainBoost(Player currentPlayer){
+
         double captainBoost = currentPlayer.getCaptainBoost();
         System.out.println("Choose where to put your captain boost");
         System.out.println("Current captain boost: " + captainBoost);

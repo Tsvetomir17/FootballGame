@@ -5,7 +5,11 @@ import Player.Player;
 
 import java.util.*;
 
-import static Game.Game.*;
+import static Game.Game.getPlayers;
+import static Game.Game.choiceMadeByTheUserValidation;
+import static Game.Game.getPlayersInTheGameSize;
+import static Game.Game.getTeamColoursInCurrentOrder;
+import static Game.Game.getTheTopPlayerFromTheDeck;
 import static Game.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
 
 public class DeadlineDay {
@@ -32,17 +36,21 @@ public class DeadlineDay {
     private static void biddingBetweenThePlayersThatParticipateInTheBidding
             (List<Player> playersThatBidForTheCurrentFootballPlayer,
             FootballPlayer footballPlayer,
-            int currentToBid)
-    {
+            int currentToBid) {
+
         if(!playersThatBidForTheCurrentFootballPlayer.isEmpty()){
 
             while(playersThatBidForTheCurrentFootballPlayer.size() != 1){
+
                 for (int i = 0; i < playersThatBidForTheCurrentFootballPlayer.size(); i++) {
+
                     if(playersThatBidForTheCurrentFootballPlayer.size() == 1) break;
 
                     if(playerChoiceToBidOrSkip(playersThatBidForTheCurrentFootballPlayer.get(i),footballPlayer,currentToBid)){
+
                         currentToBid++;
                     }else{
+
                         playersThatBidForTheCurrentFootballPlayer.remove(i);
                         i--;
                     }
@@ -54,6 +62,7 @@ public class DeadlineDay {
     }
 
     private static void purchasePlayer(Player player, FootballPlayer footballPlayer, int price){
+
         player.addFootballPlayerToTheTeamViaDeadlineDay(footballPlayer,price);
         System.out.println(player.getPlayerColour());
         System.out.println("You have successfully purchased " + footballPlayer.getFootballPlayerName() + " for " + price +  "M.");
@@ -61,6 +70,7 @@ public class DeadlineDay {
         System.out.println();
     }
     private static List<Player> goingToParticipateInTheBidding(FootballPlayer footballPlayer, int currentToBid){
+
         List<Player> playersThatBidForTheCurrentFootballPlayer = new ArrayList<>();
         for (int j = 0; j < getPlayersInTheGameSize(); j++) {
             Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(j));
@@ -73,7 +83,9 @@ public class DeadlineDay {
         return playersThatBidForTheCurrentFootballPlayer;
     }
     private static boolean playerChoiceToBidOrSkip(Player currentPlayer, FootballPlayer footballPlayer, int currentToBid){
+
         if(!canThePlayerBidForThisFootballPlayer(currentPlayer,currentToBid)){
+
             return false;
         }
         printCurrentPlayerWithBidMessage(footballPlayer,currentToBid, currentPlayer);
@@ -83,12 +95,15 @@ public class DeadlineDay {
     }
 
     private static boolean canThePlayerBidForThisFootballPlayer(Player currentPlayer, int currentToBid){
+
         if(currentPlayer.getPlayerMoney() < currentToBid){
+
             System.out.println();
             System.out.println(currentPlayer.getPlayerColour() + ", you do not have enough money to bid here");
             return false;
         }
         if(currentPlayer.getFullTeam().getFullTeamSize() == MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE){
+
             System.out.println();
             System.out.println(currentPlayer.getPlayerColour() + ", you can not add more players right now");
             return false;
@@ -98,6 +113,7 @@ public class DeadlineDay {
     }
 
     private static void printCurrentPlayerWithBidMessage(FootballPlayer footballPlayer, int currentToBid, Player currentPlayer){
+
         System.out.println();
         System.out.println(currentPlayer.getPlayerColour() + ", it is your turn to bid for this player!");
         System.out.println("You have " + currentPlayer.getPlayerMoney() + "M.");

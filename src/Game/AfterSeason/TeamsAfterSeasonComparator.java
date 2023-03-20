@@ -6,7 +6,6 @@ import java.util.Comparator;
 
 import static Game.Game.getPlayers;
 
-
 public class TeamsAfterSeasonComparator implements Comparator<String> {
 
     @Override
@@ -17,6 +16,7 @@ public class TeamsAfterSeasonComparator implements Comparator<String> {
 
         int currentPointCompare = playerTwo.getCurrentPointsInTheSeason() - playerOne.getCurrentPointsInTheSeason();
         if(currentPointCompare != 0){
+
             return currentPointCompare;
         }
 

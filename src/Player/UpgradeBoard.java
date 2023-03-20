@@ -3,7 +3,18 @@ package Player;
 import java.util.HashMap;
 import java.util.Map;
 
-import static Game.FinalVariables.*;
+import static Game.FinalVariables.FIRST_STADIUM_UPGRADE_PRICE;
+import static Game.FinalVariables.FIRST_TRAINING_CENTRE_AND_SCOUTING_UPGRADE_PRICE;
+import static Game.FinalVariables.MAX_LEVEL_UPGRADE;
+import static Game.FinalVariables.INITIAL_STEP_FOR_UPGRADES;
+import static Game.FinalVariables.NEWLY_PROMOTED;
+import static Game.FinalVariables.ESTABLISHED;
+import static Game.FinalVariables.TITLE_CONTENDER;
+import static Game.FinalVariables.MID_TABLE;
+import static Game.FinalVariables.NEWLY_PROMOTED_STADIUM_INCOME_STARTING;
+import static Game.FinalVariables.ESTABLISHED_STADIUM_INCOME_STARTING;
+import static Game.FinalVariables.MID_TABLE_STADIUM_INCOME_STARTING;
+import static Game.FinalVariables.TITLE_CONTENDER_STADIUM_INCOME_STARTING;
 
 public class UpgradeBoard {
     private int trainingCentreLevel;
@@ -14,6 +25,7 @@ public class UpgradeBoard {
     private int stadiumUpgradePrice;
     private Map<String,Integer> stadiumIncome;
     public UpgradeBoard(){
+
         trainingCentreLevel = 1;
         scoutingStaffLevel = 1;
         stadiumLevel = 1;
@@ -24,27 +36,25 @@ public class UpgradeBoard {
         fillStadiumIncomeStartingPrices();
     }
 
-    private void fillStadiumIncomeStartingPrices(){
-        stadiumIncome.put(NEWLY_PROMOTED, NEWLY_PROMOTED_STADIUM_INCOME_STARTING);
-        stadiumIncome.put(ESTABLISHED, ESTABLISHED_STADIUM_INCOME_STARTING);
-        stadiumIncome.put(MID_TABLE, MID_TABLE_STADIUM_INCOME_STARTING);
-        stadiumIncome.put(TITLE_CONTENDER, TITLE_CONTENDER_STADIUM_INCOME_STARTING);
-    }
-
     public int getTrainingCentreLevel() {
+
         return trainingCentreLevel;
     }
 
     public int getScoutingStaffLevel() {
+
         return scoutingStaffLevel;
     }
 
     public int getStadiumLevel() {
+
         return stadiumLevel;
     }
 
     public void upgradeTrainingCentre(){
+
         if(getTrainingCentreLevel() == MAX_LEVEL_UPGRADE){
+
             System.out.println("The training centre is upgraded to it's maximum level!");
             return;
         }
@@ -54,7 +64,9 @@ public class UpgradeBoard {
     }
 
     public void upgradeScoutingStaff(){
+
         if(getScoutingStaffLevel() == MAX_LEVEL_UPGRADE){
+
             System.out.println("The scouting staff is upgraded to it's maximum level!");
             return;
         }
@@ -64,7 +76,9 @@ public class UpgradeBoard {
     }
 
     public void upgradeStadium(){
+
         if(getStadiumLevel() == MAX_LEVEL_UPGRADE){
+
             System.out.println("The stadium is upgraded to it's maximum level!");
             return;
         }
@@ -75,7 +89,50 @@ public class UpgradeBoard {
         stadiumIncome = nextLevelStadiumIncome();
     }
 
+    public int getTrainingCentrePrice() {
+
+        return trainingCentrePrice;
+    }
+
+    public int getScoutingUpgradePrice() {
+
+        return scoutingUpgradePrice;
+    }
+
+    public int getStadiumUpgradePrice() {
+
+        return stadiumUpgradePrice;
+    }
+    
+    public void printStadiumIncome(){
+
+        printStadiumIncome(this.stadiumIncome);
+    }
+    public void printNextLevelUpgradeStadiumIncome(){
+
+        if(stadiumLevel == MAX_LEVEL_UPGRADE) return;
+        printStadiumIncome(nextLevelStadiumIncome());
+    }
+
+    public int getStadiumIncomeForTheCurrentPoints(int currentPlayerPoints){
+
+        if(currentPlayerPoints > 0 && currentPlayerPoints < 40) return stadiumIncome.get(NEWLY_PROMOTED);
+        else if(currentPlayerPoints >= 40 && currentPlayerPoints < 60) return stadiumIncome.get(ESTABLISHED);
+        else if(currentPlayerPoints >= 60 && currentPlayerPoints < 79) return stadiumIncome.get(MID_TABLE);
+        else if(currentPlayerPoints >= 80) return stadiumIncome.get(TITLE_CONTENDER);
+        else throw new IllegalArgumentException();
+    }
+
+    private void printStadiumIncome(Map<String,Integer> stadiumIncome){
+
+        System.out.println("    Newly promoted  " + stadiumIncome.get(NEWLY_PROMOTED) + "M.");
+        System.out.println("    Established     " + stadiumIncome.get(ESTABLISHED)  + "M.");
+        System.out.println("    Mid-table       " + stadiumIncome.get(MID_TABLE)  + "M.");
+        System.out.println("    Title contender " + stadiumIncome.get(TITLE_CONTENDER)  + "M.");
+    }
+
     private Map<String, Integer> nextLevelStadiumIncome() {
+
         Map<String,Integer> newStadiumIncome = new HashMap<>();
         newStadiumIncome.put(NEWLY_PROMOTED, stadiumIncome.get(NEWLY_PROMOTED) + NEWLY_PROMOTED_STADIUM_INCOME_STARTING/2);
         newStadiumIncome.put(ESTABLISHED, stadiumIncome.get(ESTABLISHED) + ESTABLISHED_STADIUM_INCOME_STARTING/2);
@@ -84,39 +141,11 @@ public class UpgradeBoard {
         return newStadiumIncome;
     }
 
-    public int getTrainingCentrePrice() {
-        return trainingCentrePrice;
-    }
+    private void fillStadiumIncomeStartingPrices(){
 
-    public int getScoutingUpgradePrice() {
-        return scoutingUpgradePrice;
+        stadiumIncome.put(NEWLY_PROMOTED, NEWLY_PROMOTED_STADIUM_INCOME_STARTING);
+        stadiumIncome.put(ESTABLISHED, ESTABLISHED_STADIUM_INCOME_STARTING);
+        stadiumIncome.put(MID_TABLE, MID_TABLE_STADIUM_INCOME_STARTING);
+        stadiumIncome.put(TITLE_CONTENDER, TITLE_CONTENDER_STADIUM_INCOME_STARTING);
     }
-
-    public int getStadiumUpgradePrice() {
-        return stadiumUpgradePrice;
-    }
-
-    private void printStadiumIncome(Map<String,Integer> stadiumIncome){
-        System.out.println("    Newly promoted  " + stadiumIncome.get(NEWLY_PROMOTED) + "M.");
-        System.out.println("    Established     " + stadiumIncome.get(ESTABLISHED)  + "M.");
-        System.out.println("    Mid-table       " + stadiumIncome.get(MID_TABLE)  + "M.");
-        System.out.println("    Title contender " + stadiumIncome.get(TITLE_CONTENDER)  + "M.");
-    }
-    
-    public void printStadiumIncome(){
-        printStadiumIncome(this.stadiumIncome);
-    }
-    public void printNextLevelUpgradeStadiumIncome(){
-        if(stadiumLevel == MAX_LEVEL_UPGRADE) return;
-        printStadiumIncome(nextLevelStadiumIncome());
-    }
-
-    public int getStadiumIncomeForTheCurrentPoints(int currentPlayerPoints){
-        if(currentPlayerPoints > 0 && currentPlayerPoints < 40) return stadiumIncome.get(NEWLY_PROMOTED);
-        else if(currentPlayerPoints >= 40 && currentPlayerPoints < 60) return stadiumIncome.get(ESTABLISHED);
-        else if(currentPlayerPoints >= 60 && currentPlayerPoints < 79) return stadiumIncome.get(MID_TABLE);
-        else if(currentPlayerPoints >= 80) return stadiumIncome.get(TITLE_CONTENDER);
-        else throw new IllegalArgumentException();
-    }
-
 }

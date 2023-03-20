@@ -25,43 +25,64 @@ public class Game {
     private static Stack<FootballPlayer> theFullDeckOfFootballPlayers;
     static Map<String, Player> players;
     static List<String> teamColoursInCurrentOrder;
-    private static final Game instance = new Game();
-
     private Game(){
+
         players = new HashMap<>();
         teamColoursInCurrentOrder = new ArrayList<>();
         theFullDeckOfFootballPlayers = new Stack<>();
     }
 
     public static Game getGameInstance(){
+
         return instance;
     }
-    private static void setPlayersInTheGameSize(){
-        playersInTheGameSize = choiceMadeByTheUserValidation(2,6);
-    }
     public static int getPlayersInTheGameSize(){
+
         return playersInTheGameSize;
     }
     public static FootballPlayer getTheTopPlayerFromTheDeck(){
+
         return theFullDeckOfFootballPlayers.pop();
     }
-
     public static void pushPlayerToTheDeck(FootballPlayer footballPlayer){
+
         theFullDeckOfFootballPlayers.push(footballPlayer);
     }
     public static Map<String, Player> getPlayers() {
+
         return players;
     }
     public static List<String> getTeamColoursInCurrentOrder() {
+
         return teamColoursInCurrentOrder;
     }
 
     public void startGame() throws SQLException, ClassNotFoundException, InterruptedException {
+
         firstSeason();
         nextSeason();
     }
+    public static int choiceMadeByTheUserValidation(int minimumValue, int maximumValue){
+
+        int choice;
+        Scanner scanner = new Scanner(System.in);
+        choice = scanner.nextInt();
+        while (choice < minimumValue || choice > maximumValue) {
+
+            System.out.println("Bad input! Try again: ");
+            choice = scanner.nextInt();
+        }
+
+        return choice;
+    }
+    private static final Game instance = new Game();
+    private static void setPlayersInTheGameSize(){
+
+        playersInTheGameSize = choiceMadeByTheUserValidation(2,6);
+    }
 
     private void firstSeason() throws SQLException, ClassNotFoundException, InterruptedException {
+
         printStartingMessage();
         setPlayersInTheGameSize();
         setPlayersColoursAndMoney();
@@ -74,7 +95,9 @@ public class Game {
         scoutingUpgradesDeadlineLineUpAndSeason();
     }
     private void nextSeason() throws SQLException, ClassNotFoundException, InterruptedException {
+
         while(afterSeason()){
+
             printStageName("PLAYER DEVELOPMENT");
             upgradeFootballPlayers();
             printStageName("DISCARDING");
@@ -84,6 +107,7 @@ public class Game {
     }
 
     private void scoutingUpgradesDeadlineLineUpAndSeason() throws InterruptedException {
+
         printStageName("SCOUTING");
         scouting();
         printStageName("UPGRADES");
@@ -95,17 +119,4 @@ public class Game {
         printStageName("SEASON");
         season();
     }
-
-    public static int choiceMadeByTheUserValidation(int minimumValue, int maximumValue){
-        int choice;
-        Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextInt();
-        while (choice < minimumValue || choice > maximumValue) {
-            System.out.println("Bad input! Try again: ");
-            choice = scanner.nextInt();
-        }
-
-        return choice;
-    }
-
 }
