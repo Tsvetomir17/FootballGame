@@ -2,24 +2,22 @@ package Game.Preseason;
 
 import FootballPlayer.FootballPlayer;
 import FootballPlayer.FootballPlayersPositions;
+import Game.Game;
 import Player.FullTeam;
 import Player.Player;
-
+import Game.InputValidator;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Game.Game.getPlayers;
-import static Game.Game.choiceMadeByTheUserValidation;
-import static Game.Game.getPlayersInTheGameSize;
-import static Game.Game.getTeamColoursInCurrentOrder;
+public class LineUp implements PreSeasonActions{
 
-public class LineUp {
+    @Override
+    public void action(Game game) throws SQLException, ClassNotFoundException, InterruptedException {
 
-    public static void setLineUp() throws InterruptedException {
+        for (int i = 0; i < game.getPlayersInTheGameSize(); i++) {
 
-        for (int i = 0; i < getPlayersInTheGameSize(); i++) {
-
-            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
+            Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(i));
             printStartingMessage(currentPlayer);
             playerChoosingFormation(currentPlayer);
             Thread.sleep(1500);
@@ -44,7 +42,7 @@ public class LineUp {
 
     private static int playerChoiceForFormation(){
 
-        return choiceMadeByTheUserValidation(0,5);
+        return InputValidator.choiceMadeByTheUserValidation(1,5);
     }
 
     private static void playerChoosingFormation(Player currentPlayer){
@@ -122,12 +120,12 @@ public class LineUp {
         for (int i = 0; i < lineSize; i++) {
 
             playerSquad.printFullTeam();
-            int indexOfSelectedFootballPlayer = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize()) -1;
+            int indexOfSelectedFootballPlayer = InputValidator.choiceMadeByTheUserValidation(1,playerSquad.getFullTeamSize()) -1;
 
             while(playerSquad.getFootballPlayerAtIndex(indexOfSelectedFootballPlayer).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER){
 
                 System.out.println("You can not add goalkeeper there");
-                indexOfSelectedFootballPlayer = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize()) -1;
+                indexOfSelectedFootballPlayer = InputValidator.choiceMadeByTheUserValidation(1,playerSquad.getFullTeamSize()) -1;
             }
 
             currentRow.add(playerSquad.selectFootballPlayerForLineUpAtIndex(indexOfSelectedFootballPlayer));
@@ -171,11 +169,11 @@ public class LineUp {
 
             System.out.println("Choose your goalkeeper: ");
             System.out.println("(Note: You can not change the goalkeeper after that choice!)");
-            int playerChoice = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize())-1;
+            int playerChoice = InputValidator.choiceMadeByTheUserValidation(1,playerSquad.getFullTeamSize())-1;
             while(!(playerSquad.getFootballPlayerAtIndex(playerChoice).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER)){
 
                 System.out.println("Choose a goalkeeper: ");
-                playerChoice = choiceMadeByTheUserValidation(0,playerSquad.getFullTeamSize())-1;
+                playerChoice = InputValidator.choiceMadeByTheUserValidation(1,playerSquad.getFullTeamSize())-1;
             }
 
             return playerSquad.selectFootballPlayerForLineUpAtIndex(playerChoice);
@@ -201,11 +199,11 @@ public class LineUp {
         printCurrentLineUp(defenceRow, midfieldRow, attackRow);
         printFirstMessageAskingForChangesInLineUp();
 
-        int choiceByUser = choiceMadeByTheUserValidation(0,2);
+        int choiceByUser = InputValidator.choiceMadeByTheUserValidation(1,2);
         if(choiceByUser == 2) return;
 
         printMessageChoosingLineForChange();
-        choiceByUser = choiceMadeByTheUserValidation(0,3);
+        choiceByUser = InputValidator.choiceMadeByTheUserValidation(1,3);
 
         switch (choiceByUser) {
 
@@ -255,12 +253,12 @@ public class LineUp {
 
     private static int playersChoiceValidationWithAdditionThatTheFootballPlayerIsNotGoalkeeper(List<FootballPlayer> currentPlayers){
 
-        int choiceByUser = choiceMadeByTheUserValidation(0, currentPlayers.size()) -1;
+        int choiceByUser = InputValidator.choiceMadeByTheUserValidation(1, currentPlayers.size()) -1;
         boolean checkIfGoalkeeper = currentPlayers.get(choiceByUser).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER;
         while (checkIfGoalkeeper){
 
             System.out.println("You can not choose goalkeepers in that phase of the game");
-            choiceByUser = choiceMadeByTheUserValidation(0, currentPlayers.size()) -1;
+            choiceByUser = InputValidator.choiceMadeByTheUserValidation(1, currentPlayers.size()) -1;
             checkIfGoalkeeper = currentPlayers.get(choiceByUser).getFootballPlayerPosition() == FootballPlayersPositions.GOALKEEPER;
         }
 
@@ -291,7 +289,7 @@ public class LineUp {
 
         printMessageForCaptainBoost(currentPlayer);
 
-        int choiceByUser = choiceMadeByTheUserValidation(0,3);
+        int choiceByUser = InputValidator.choiceMadeByTheUserValidation(1,3);
         switch (choiceByUser){
 
             case 1 -> currentPlayer.getFullTeam().setDefenceOverall(currentPlayer.getFullTeam().getDefenceOverall() + getCaptainBoostOnTheCurrentRow(currentPlayer,defenceRow,FootballPlayersPositions.DEFENDER));

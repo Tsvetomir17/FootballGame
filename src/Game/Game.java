@@ -1,30 +1,35 @@
 package Game;
 
 import FootballPlayer.FootballPlayer;
+import Game.AfterSeason.AfterSeason;
+import Game.Starting.Draft;
+import Game.Starting.GetAllPlayersFromDB;
+import Game.Starting.SetPlayersColoursAndMoney;
 import Player.Player;
-
+import Game.Preseason.DeadlineDay;
+import Game.Preseason.Discarding;
+import Game.Preseason.LineUp;
+import Game.Preseason.PlayerDevelopment;
+import Game.Preseason.Scouting;
+import Game.Preseason.Upgrades;
+import Game.Season.Season;
 import java.sql.*;
 import java.util.*;
 
-import static Game.AfterSeason.AfterSeason.afterSeason;
-import static Game.Preseason.DeadlineDay.deadlineDay;
-import static Game.Preseason.Discarding.discarding;
-import static Game.PrintFunctionsForDifferentStagesOfTheGame.printStageName;
-import static Game.PrintFunctionsForDifferentStagesOfTheGame.printStartingMessage;
-import static Game.Starting.Draft.setTheFootballPlayersDraft;
-import static Game.Starting.GetAllPlayersFromDB.fillTheListOfFootballPlayers;
-import static Game.Preseason.LineUp.setLineUp;
-import static Game.Preseason.Scouting.scouting;
-import static Game.Starting.SetPlayersColoursAndMoney.*;
-import static Game.Preseason.PlayerDevelopment.upgradeFootballPlayers;
-import static Game.Preseason.Upgrades.upgrades;
-import static Game.Season.Season.season;
 
 public class Game {
-    private static int playersInTheGameSize;
-    private static Stack<FootballPlayer> theFullDeckOfFootballPlayers;
-    static Map<String, Player> players;
-    static List<String> teamColoursInCurrentOrder;
+    private int playersInTheGameSize;
+    private final Stack<FootballPlayer> theFullDeckOfFootballPlayers;
+    private final Map<String, Player> players;
+    private final List<String> teamColoursInCurrentOrder;
+    private final PrintFunctionsForDifferentStagesOfTheGame printFunctionsForDifferentStagesOfTheGame = new PrintFunctionsForDifferentStagesOfTheGame();
+    private final DeadlineDay deadlineDay = new DeadlineDay();
+    private final Discarding discarding = new Discarding();
+    private final LineUp lineUp = new LineUp();
+    private final PlayerDevelopment playerDevelopment = new PlayerDevelopment();
+    private final Scouting scouting = new Scouting();
+    private final Upgrades upgrades = new Upgrades();
+    private final Season season = new Season();
     private Game(){
 
         players = new HashMap<>();
@@ -36,23 +41,23 @@ public class Game {
 
         return instance;
     }
-    public static int getPlayersInTheGameSize(){
+    public int getPlayersInTheGameSize(){
 
         return playersInTheGameSize;
     }
-    public static FootballPlayer getTheTopPlayerFromTheDeck(){
+    public FootballPlayer getTheTopPlayerFromTheDeck(){
 
         return theFullDeckOfFootballPlayers.pop();
     }
-    public static void pushPlayerToTheDeck(FootballPlayer footballPlayer){
+    public void pushPlayerToTheDeck(FootballPlayer footballPlayer){
 
         theFullDeckOfFootballPlayers.push(footballPlayer);
     }
-    public static Map<String, Player> getPlayers() {
+    public Map<String, Player> getPlayers() {
 
         return players;
     }
-    public static List<String> getTeamColoursInCurrentOrder() {
+    public List<String> getTeamColoursInCurrentOrder() {
 
         return teamColoursInCurrentOrder;
     }
@@ -62,61 +67,54 @@ public class Game {
         firstSeason();
         nextSeason();
     }
-    public static int choiceMadeByTheUserValidation(int minimumValue, int maximumValue){
 
-        int choice;
-        Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextInt();
-        while (choice < minimumValue || choice > maximumValue) {
-
-            System.out.println("Bad input! Try again: ");
-            choice = scanner.nextInt();
-        }
-
-        return choice;
-    }
     private static final Game instance = new Game();
-    private static void setPlayersInTheGameSize(){
+    private void setPlayersInTheGameSize(){
 
-        playersInTheGameSize = choiceMadeByTheUserValidation(2,6);
+        playersInTheGameSize = InputValidator.choiceMadeByTheUserValidation(2,6);
     }
 
     private void firstSeason() throws SQLException, ClassNotFoundException, InterruptedException {
 
-        printStartingMessage();
-        setPlayersInTheGameSize();
-        setPlayersColoursAndMoney();
-        fillTheListOfFootballPlayers();
+        SetPlayersColoursAndMoney setPlayersColoursAndMoney = new SetPlayersColoursAndMoney();
+        GetAllPlayersFromDB getAllPlayersFromDB = new GetAllPlayersFromDB();
+        Draft draft = new Draft();
 
-        printStageName("DRAFT");
-        setTheFootballPlayersDraft();
-        printStageName("PLAYER DEVELOPMENT");
-        upgradeFootballPlayers();
+        printFunctionsForDifferentStagesOfTheGame.printStartingMessage();
+        setPlayersInTheGameSize();
+        setPlayersColoursAndMoney.action(getGameInstance());
+        getAllPlayersFromDB.action(getGameInstance());
+
+        printFunctionsForDifferentStagesOfTheGame.printStageName("DRAFT");
+        draft.action(getGameInstance());
+        printFunctionsForDifferentStagesOfTheGame.printStageName("PLAYER DEVELOPMENT");
+        playerDevelopment.action(getGameInstance());
         scoutingUpgradesDeadlineLineUpAndSeason();
     }
     private void nextSeason() throws SQLException, ClassNotFoundException, InterruptedException {
 
-        while(afterSeason()){
+        AfterSeason afterSeason = new AfterSeason();
+        while(afterSeason.action(getGameInstance())){
 
-            printStageName("PLAYER DEVELOPMENT");
-            upgradeFootballPlayers();
-            printStageName("DISCARDING");
-            discarding();
+            printFunctionsForDifferentStagesOfTheGame.printStageName("PLAYER DEVELOPMENT");
+            playerDevelopment.action(getGameInstance());
+            printFunctionsForDifferentStagesOfTheGame.printStageName("DISCARDING");
+            discarding.action(getGameInstance());
             scoutingUpgradesDeadlineLineUpAndSeason();
         }
     }
 
-    private void scoutingUpgradesDeadlineLineUpAndSeason() throws InterruptedException {
+    private void scoutingUpgradesDeadlineLineUpAndSeason() throws InterruptedException, SQLException, ClassNotFoundException {
 
-        printStageName("SCOUTING");
-        scouting();
-        printStageName("UPGRADES");
-        upgrades();
-        printStageName("DEADLINE DAY");
-        deadlineDay();
-        printStageName("LINE UPS");
-        setLineUp();
-        printStageName("SEASON");
-        season();
+        printFunctionsForDifferentStagesOfTheGame.printStageName("SCOUTING");
+        scouting.action(getGameInstance());
+        printFunctionsForDifferentStagesOfTheGame.printStageName("UPGRADES");
+        upgrades.action(getGameInstance());
+        printFunctionsForDifferentStagesOfTheGame.printStageName("DEADLINE DAY");
+        deadlineDay.action(getGameInstance());
+        printFunctionsForDifferentStagesOfTheGame.printStageName("LINE UPS");
+        lineUp.action(getGameInstance());
+        printFunctionsForDifferentStagesOfTheGame.printStageName("SEASON");
+        season.season(getGameInstance());
     }
 }

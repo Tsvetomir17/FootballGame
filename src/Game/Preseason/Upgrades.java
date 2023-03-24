@@ -1,29 +1,25 @@
 package Game.Preseason;
 
+import Game.Game;
 import Player.Player;
-
-
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import static Game.FinalVariables.SCOUTING;
 import static Game.FinalVariables.YOUTH_DEVELOPMENT;
 import static Game.FinalVariables.STADIUM_INCOME;
 import static Game.FinalVariables.UPGRADES_PER_PLAYER_PER_SEASON;
 import static Game.FinalVariables.MAX_LEVEL_UPGRADE;
-import static Game.Game.getPlayers;
-import static Game.Game.choiceMadeByTheUserValidation;
-import static Game.Game.getPlayersInTheGameSize;
-import static Game.Game.getTeamColoursInCurrentOrder;
+import Game.InputValidator;
 
-public class Upgrades {
+public class Upgrades implements PreSeasonActions {
 
-    public static void upgrades() throws InterruptedException {
+    @Override
+    public void action(Game game) throws SQLException, ClassNotFoundException, InterruptedException{
+        for (int i = 0; i < game.getPlayersInTheGameSize(); i++) {
 
-        for (int i = 0; i < getPlayersInTheGameSize(); i++) {
-
-            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
+            Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(i));
             System.out.println(currentPlayer.getPlayerColour() + ", it is your turn to upgrade!");
             System.out.println("You have 2 upgrades in total");
 
@@ -47,7 +43,7 @@ public class Upgrades {
         System.out.println("1. Upgrade player development");
         if(playerDevelopmentLevel == MAX_LEVEL_UPGRADE){
 
-            System.out.println("You have reached max level of the training centre");
+            System.out.println("    You have reached max level of the training centre");
             return;
         }
 
@@ -55,10 +51,6 @@ public class Upgrades {
         System.out.println("   Add max " + playerDevelopmentLevel + " stars to " + playerDevelopmentLevel + " players");
         System.out.println("   Next level:");
         System.out.println("   Add max " + (playerDevelopmentLevel+1) + " stars to " + (playerDevelopmentLevel+1) + " players");
-        if(playerDevelopmentLevel == 3) {
-
-            System.out.println("    Add one permanent star to one player");
-        }
         System.out.println("   Price: " + player.getPlayerUpgradeBoard().getTrainingCentrePrice() + "M.");
     }
 
@@ -68,7 +60,7 @@ public class Upgrades {
         System.out.println("2. Upgrade scouting");
         if(playerScoutingLevel == MAX_LEVEL_UPGRADE){
 
-            System.out.println("You have reached max level of the scouting");
+            System.out.println("    You have reached max level of the scouting");
             return;
         }
 
@@ -85,7 +77,7 @@ public class Upgrades {
         System.out.println("3. Upgrade stadium");
         if(playerStadiumLevel == MAX_LEVEL_UPGRADE){
 
-            System.out.println("You have reached max level of the stadium upgrades");
+            System.out.println("    You have reached max level of the stadium upgrades");
             return;
         }
 
@@ -174,7 +166,7 @@ public class Upgrades {
 
     private static void playerChoiceAndUpgrade(Map<String, Boolean> upgradedThisSeason, Player player) throws InterruptedException {
 
-        int choice = choiceMadeByTheUserValidation(0,4);
+        int choice = InputValidator.choiceMadeByTheUserValidation(1,4);
         switch (choice){
 
             case 1 -> {

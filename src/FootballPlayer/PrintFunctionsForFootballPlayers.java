@@ -1,14 +1,14 @@
 package FootballPlayer;
 
-
 import static Game.FinalVariables.FOOTBALL_PLAYER_CARD_MAXIMUM_ROW_SIZE;
 import static Game.FinalVariables.FULL_STAR_FOR_FOOTBALL_PLAYERS;
 import static Game.FinalVariables.EMPTY_STAR_FOR_FOOTBALL_PLAYERS;
 import static Game.FinalVariables.CHECK_MARK_POINTING_IF_FOOTBALL_PLAYER_HAS_CHEMISTRY_STYLE_FROM_THAT_SIDE;
 import static Game.FinalVariables.CAPTAIN_SYMBOL_FOR_FOOTBALL_PLAYERS;
 
-public class PrintFunctionsForFootballPlayers {
-    public static void printFootballPlayerAsCard(FootballPlayer player){
+public class PrintFunctionsForFootballPlayers implements IPrintFunctionsForFootballPlayers {
+    @Override
+    public void printFootballPlayerAsCard(FootballPlayer player){
 
         printRowOneForCard(player);
         printRowTwoForCard(player);
@@ -18,7 +18,8 @@ public class PrintFunctionsForFootballPlayers {
         System.out.println();
     }
 
-    public static void printFootballPlayerOnOneRow(FootballPlayer player){
+    @Override
+    public void printFootballPlayerOnOneRow(FootballPlayer player){
 
         System.out.print(player.getFootballPlayerName() + " ");
         System.out.print(getStringWithTheStarsOfThePlayer(player) + " ");
@@ -27,19 +28,19 @@ public class PrintFunctionsForFootballPlayers {
         System.out.println(player.getScoutingPrice() + "M.  " + player.getDeadlineDayPrice() + "M.");
     }
 
-    private static void printCentredTheCurrentRow(String currentRow){
+    private void printCentredTheCurrentRow(String currentRow){
 
         int leftShift = (FOOTBALL_PLAYER_CARD_MAXIMUM_ROW_SIZE - currentRow.length())/2;
         int rightShift = (FOOTBALL_PLAYER_CARD_MAXIMUM_ROW_SIZE - currentRow.length()) - leftShift;
         System.out.printf("%" + leftShift + "s%s%" + rightShift + "s%n", "", currentRow, "");
     }
 
-    private static void printRowOneForCard(FootballPlayer player){
+    private void printRowOneForCard(FootballPlayer player){
 
         printCentredTheCurrentRow(player.getFootballPlayerName());
     }
 
-    private static String getStringWithTheStarsOfThePlayer(FootballPlayer player){
+    private String getStringWithTheStarsOfThePlayer(FootballPlayer player){
 
         StringBuilder currentFootballPlayerStars = new StringBuilder();
         int currentFootballPlayerRating = player.getCurrentFootballPlayerRating();
@@ -50,16 +51,16 @@ public class PrintFunctionsForFootballPlayers {
         return currentFootballPlayerStars.toString();
     }
 
-    private static void printRowTwoForCard(FootballPlayer player){
+    private void printRowTwoForCard(FootballPlayer player){
 
         printCentredTheCurrentRow(getStringWithTheStarsOfThePlayer(player));
     }
-    private static void printRowThreeForCard(FootballPlayer player){
+    private void printRowThreeForCard(FootballPlayer player){
 
         printCentredTheCurrentRow(player.getFootballPlayerPositionAsString());
     }
 
-    private static String getStringWithChemistryStylesAndCaptain(FootballPlayer player){
+    private String getStringWithChemistryStylesAndCaptain(FootballPlayer player){
 
         String result = "";
         String fourEmptySpaces = "    ";
@@ -89,12 +90,12 @@ public class PrintFunctionsForFootballPlayers {
 
         return result;
     }
-    private static void printRowFourForCard(FootballPlayer player){
+    private void printRowFourForCard(FootballPlayer player){
 
         System.out.println(getStringWithChemistryStylesAndCaptain(player));
     }
 
-    private static void printRowFiveForCard(FootballPlayer player){
+    private void printRowFiveForCard(FootballPlayer player){
 
         String addOneMoreSpaceInTheBeginningIfPriceIsUnderTen = " ";
         if(player.getScoutingPrice() < 10){

@@ -1,18 +1,16 @@
 package Game.AfterSeason;
 
+import Game.Game;
 import Player.Player;
-
 import java.util.Comparator;
-
-import static Game.Game.getPlayers;
 
 public class TeamsAfterSeasonComparator implements Comparator<String> {
 
     @Override
     public int compare(String colourOne, String colourTwo) {
 
-        Player playerOne = getPlayers().get(colourOne);
-        Player playerTwo = getPlayers().get(colourTwo);
+        Player playerOne = Game.getGameInstance().getPlayers().get(colourOne);
+        Player playerTwo = Game.getGameInstance().getPlayers().get(colourTwo);
 
         int currentPointCompare = playerTwo.getCurrentPointsInTheSeason() - playerOne.getCurrentPointsInTheSeason();
         if(currentPointCompare != 0){
@@ -20,6 +18,6 @@ public class TeamsAfterSeasonComparator implements Comparator<String> {
             return currentPointCompare;
         }
 
-        return playerOne.getCurrentPlayerOverall() - playerTwo.getCurrentPlayerOverall();
+        return playerOne.getCurrentOverall() - playerTwo.getCurrentOverall();
     }
 }

@@ -2,18 +2,15 @@ package Game.Season;
 
 import Game.Dice;
 import Player.Player;
-
 import static Game.FinalVariables.FIRST_LEVEL_OVERALL_RATING;
 import static Game.FinalVariables.SECOND_LEVEL_OVERALL_RATING;
 import static Game.FinalVariables.THIRD_LEVEL_OVERALL_RATING;
-import static Game.Season.PrintFunctionsForSeason.printForOneSim;
-
 
 public class SimVariations {
+    PrintFunctionsForSeason printFunctionsForSeason = new PrintFunctionsForSeason();
+    public void simulateMatch(Player player) throws InterruptedException {
 
-    public static void simulateMatch(Player player) throws InterruptedException {
-
-        int playerCurrentOverall = player.getCurrentPlayerOverall();
+        int playerCurrentOverall = player.getCurrentOverall();
 
         if(playerCurrentOverall < FIRST_LEVEL_OVERALL_RATING){
 
@@ -33,12 +30,12 @@ public class SimVariations {
         }
     }
 
-    public static void simulateMatch(Player player, int minimumPointsNotToLose, int pointsNeededToWin) throws InterruptedException {
+    public void simulateMatch(Player player, int minimumPointsNotToLose, int pointsNeededToWin) throws InterruptedException {
 
         int randomRollDiceOne = Dice.getInstance().rollDice();
         int randomRollDiceTwo = Dice.getInstance().rollDice();
 
-        printForOneSim(player,randomRollDiceOne,randomRollDiceTwo);
+        printFunctionsForSeason.printForOneSim(player,randomRollDiceOne,randomRollDiceTwo);
 
         if(randomRollDiceOne + randomRollDiceTwo < minimumPointsNotToLose){
 

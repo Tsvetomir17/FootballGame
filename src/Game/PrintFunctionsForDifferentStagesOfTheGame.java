@@ -1,7 +1,7 @@
 package Game;
 
-public class PrintFunctionsForDifferentStagesOfTheGame {
-    static void printStartingMessage(){
+public class PrintFunctionsForDifferentStagesOfTheGame implements IPrintFunctionsForDifferentStagesOfTheGame {
+    public void printStartingMessage(){
 
         System.out.println("Hello! Welcome to the FootballCup game!");
         System.out.println("Minimum players size: 2");
@@ -9,7 +9,7 @@ public class PrintFunctionsForDifferentStagesOfTheGame {
         System.out.println("Please type how many players are going to play: ");
     }
 
-    static void printStageName(String stageName) throws InterruptedException {
+    public void printStageName(String stageName) throws InterruptedException {
 
         System.out.println("\n\n");
         String oneRowWithLines = "+--------------------------------" + "-".repeat(stageName.length()) + "+";

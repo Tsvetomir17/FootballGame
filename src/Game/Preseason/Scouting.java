@@ -1,22 +1,18 @@
 package Game.Preseason;
 
 import FootballPlayer.FootballPlayer;
+import Game.Game;
 import Player.Player;
-
-import static Game.Game.getPlayers;
-import static Game.Game.choiceMadeByTheUserValidation;
-import static Game.Game.getPlayersInTheGameSize;
-import static Game.Game.getTeamColoursInCurrentOrder;
-import static Game.Game.getTheTopPlayerFromTheDeck;
+import java.sql.SQLException;
 import static Game.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
+import Game.InputValidator;
 
-public class Scouting {
+public class Scouting implements PreSeasonActions{
+    @Override
+    public void action(Game game) throws SQLException, ClassNotFoundException, InterruptedException {
+        for (int i = 0; i < game.getPlayersInTheGameSize(); i++) {
 
-    public static void scouting(){
-
-        for (int i = 0; i < getPlayersInTheGameSize(); i++) {
-
-            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
+            Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(i));
 
             int playersThatCanBeScoutedSize = currentPlayer.getPlayerUpgradeBoard().getScoutingStaffLevel();
             System.out.println(currentPlayer.getPlayerColour() +", it is your turn to do scouting!");
@@ -32,7 +28,7 @@ public class Scouting {
                     break;
                 }
 
-                FootballPlayer scoutedPlayer = getTheTopPlayerFromTheDeck();
+                FootballPlayer scoutedPlayer = game.getTheTopPlayerFromTheDeck();
                 scoutedPlayer.printFootballPlayerAsCard();
 
                 if(!checkIfThePlayerHasEnoughMoney(currentPlayer,scoutedPlayer)) continue;
@@ -55,7 +51,7 @@ public class Scouting {
         System.out.println("1. Buy");
         System.out.println("2. Skip");
 
-        return choiceMadeByTheUserValidation(0,2);
+        return InputValidator.choiceMadeByTheUserValidation(1,2);
     }
 
     private static void buyPlayer(Player currentPlayer, FootballPlayer scoutedPlayer){

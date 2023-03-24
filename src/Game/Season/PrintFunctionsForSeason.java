@@ -1,13 +1,12 @@
 package Game.Season;
 
 import Player.Player;
-
 import java.util.List;
 import java.util.Map;
 
 public class PrintFunctionsForSeason {
 
-    public static void printStartOfTheSeasonMessage() throws InterruptedException {
+    public void printStartOfTheSeasonMessage() throws InterruptedException {
 
         System.out.println("Here comes the season");
         System.out.println("There are five matches");
@@ -24,13 +23,13 @@ public class PrintFunctionsForSeason {
         Thread.sleep(7000);
     }
 
-    public static void printForEveryOneIsSIM(){
+    public void printForEveryOneIsSIM(){
 
         System.out.println("Everyone is simulating their match");
         System.out.println();
     }
 
-    public static void printForOneSim(Player player, int diceNumberOne, int diceNumberTwo) throws InterruptedException {
+    public void printForOneSim(Player player, int diceNumberOne, int diceNumberTwo) throws InterruptedException {
 
         System.out.println("SIM for " + player.getPlayerColour() + " team");
         Thread.sleep(2000);
@@ -38,7 +37,7 @@ public class PrintFunctionsForSeason {
         Thread.sleep(1000);
     }
 
-    public static void printStatusLevels(){
+    public void printStatusLevels(){
 
         System.out.println("Newly promoted      0-39 overall");
         System.out.println("SIM roll    2-7 Lose    8-9 Draw    10-12 Win\n");
@@ -53,7 +52,7 @@ public class PrintFunctionsForSeason {
         System.out.println("SIM roll    2-4 Lose    5-6 Draw    7-12 Win\n");
     }
 
-    public static void printPlayersStartingPositionsAndCurrentPoints(Map<String,Player> players, List<String> teamColoursInOrder) throws InterruptedException {
+    public void printPlayersStartingPositionsAndCurrentPoints(Map<String,Player> players, List<String> teamColoursInOrder) throws InterruptedException {
 
         System.out.println("\n\n");
         for (int i = 0; i < players.size(); i++) {
@@ -64,12 +63,12 @@ public class PrintFunctionsForSeason {
         Thread.sleep(2000);
     }
 
-    private static void printStartingPositionAndCurrentPoints(Player player){
+    private void printStartingPositionAndCurrentPoints(Player player){
 
-        System.out.println(player.getPlayerColour() + "  SP: " + player.getCurrentPlayerOverall() + "  CP: " + player.getCurrentPointsInTheSeason());
+        System.out.println(player.getPlayerColour() + "  SP: " + player.getCurrentOverall() + "  CP: " + player.getCurrentPointsInTheSeason());
     }
 
-    public static void printForLineInPvP(String playerColour, int diceOne, int diceTwo, String rowName, double lineStats) throws InterruptedException {
+    public void printForLineInPvP(String playerColour, int diceOne, int diceTwo, String rowName, double lineStats) throws InterruptedException {
 
         System.out.println(playerColour + " is rolling for " + rowName);
         System.out.println("You have " + lineStats + " in this line");

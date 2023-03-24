@@ -3,30 +3,29 @@ package Game.Season;
 import Game.Dice;
 import FootballCupTeam.FootballCupTeam;
 import Player.Player;
-
 import java.util.Map;
-
-import static Game.Season.PrintFunctionsForSeason.printForEveryOneIsSIM;
-import static Game.Season.PrintFunctionsForSeason.printForLineInPvP;
 
 public class FootballMatches {
 
-    public static void everyPlayerIsSIM(Map<String, Player> players) throws InterruptedException {
+    PrintFunctionsForSeason printFunctionsForSeason = new PrintFunctionsForSeason();
+    SimVariations simVariations = new SimVariations();
 
-        printForEveryOneIsSIM();
+    public void everyPlayerIsSIM(Map<String, Player> players) throws InterruptedException {
+
+        printFunctionsForSeason.printForEveryOneIsSIM();
 
         for(Player player : players.values()){
 
-            SimVariations.simulateMatch(player);
+            simVariations.simulateMatch(player);
         }
     }
 
-    public static void onlyOnePlayerSIM(Player player) throws InterruptedException {
+    public void onlyOnePlayerSIM(Player player) throws InterruptedException {
 
-        SimVariations.simulateMatch(player);
+        simVariations.simulateMatch(player);
     }
 
-    public static void matchPlayerVsPlayer(Player player1, Player player2) throws InterruptedException {
+    public void matchPlayerVsPlayer(Player player1, Player player2) throws InterruptedException {
 
         System.out.println(player1.getPlayerColour() + "  vs  " + player2.getPlayerColour() + '\n');
         double playerOneScore = 0;
@@ -52,7 +51,7 @@ public class FootballMatches {
         }
     }
 
-    public static boolean matchPlayerVsFootballCupTeam(Player player, FootballCupTeam footballCupTeam) throws InterruptedException {
+    public boolean matchPlayerVsFootballCupTeam(Player player, FootballCupTeam footballCupTeam) throws InterruptedException {
 
         System.out.println(player.getPlayerColour() + "  vs  " + footballCupTeam.getName() + '\n');
         double playerOneScore = 0;
@@ -70,16 +69,16 @@ public class FootballMatches {
         return false;
     }
 
-    private static double calculateOneLineInPvP(String playerOneColour, double player1LineStats, String playerOneRowName, String playerTwoColour, double player2LineStats, String playerTwoRowName) throws InterruptedException {
+    private double calculateOneLineInPvP(String playerOneColour, double player1LineStats, String playerOneRowName, String playerTwoColour, double player2LineStats, String playerTwoRowName) throws InterruptedException {
 
         int rolledDiceOne = Dice.getInstance().rollDice();
         int rolledDiceTwo = Dice.getInstance().rollDice();
-        printForLineInPvP(playerOneColour,rolledDiceOne,rolledDiceTwo,playerOneRowName,player1LineStats);
+        printFunctionsForSeason.printForLineInPvP(playerOneColour,rolledDiceOne,rolledDiceTwo,playerOneRowName,player1LineStats);
         player1LineStats += rolledDiceOne + rolledDiceTwo;
 
         rolledDiceOne = Dice.getInstance().rollDice();
         rolledDiceTwo = Dice.getInstance().rollDice();
-        printForLineInPvP(playerTwoColour,rolledDiceOne,rolledDiceTwo,playerTwoRowName,player2LineStats);
+        printFunctionsForSeason.printForLineInPvP(playerTwoColour,rolledDiceOne,rolledDiceTwo,playerTwoRowName,player2LineStats);
         player2LineStats += rolledDiceOne + rolledDiceTwo;
 
         if(player1LineStats > player2LineStats){

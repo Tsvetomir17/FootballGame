@@ -7,7 +7,7 @@ public class Player {
     private final UpgradeBoard upgradeBoard;
     private final FullTeam fullTeam;
     private int money;
-    private int currentPlayerOverall;
+    private int currentOverall;
     private int currentPointsInTheSeason;
     private double captainBoost;
     private int seasonWins;
@@ -17,7 +17,7 @@ public class Player {
         teamColour= playerSetTeamColour(colour);
         upgradeBoard = new UpgradeBoard();
         fullTeam = new FullTeam();
-        currentPlayerOverall = 0;
+        currentOverall = 0;
         money = 0;
         captainBoost = 1;
         seasonWins = 0;
@@ -46,9 +46,9 @@ public class Player {
         return teamColour;
     }
 
-    public int getCurrentPlayerOverall(){
+    public int getCurrentOverall(){
 
-        return currentPlayerOverall;
+        return currentOverall;
     }
     public void addFootballPlayerToTheTeamViaDraft(FootballPlayer player){
 
@@ -67,14 +67,14 @@ public class Player {
 
     public void discardFootballPlayerFromTheTeam(int indexOfThePlayer){
 
-        currentPlayerOverall -= fullTeam.getFootballPlayerAtIndex(indexOfThePlayer).getCurrentFootballPlayerRating();
+        currentOverall -= fullTeam.getFootballPlayerAtIndex(indexOfThePlayer).getCurrentFootballPlayerRating();
         money += fullTeam.getFootballPlayerAtIndex(indexOfThePlayer).getScoutingPrice();
         fullTeam.removePlayerAtIndex(indexOfThePlayer);
     }
 
     public void upgradeFootballPlayer(FootballPlayer footballPlayer, int index){
 
-        currentPlayerOverall = currentPlayerOverall + footballPlayer.getCurrentFootballPlayerRating() -
+        currentOverall = currentOverall + footballPlayer.getCurrentFootballPlayerRating() -
                 fullTeam.getFootballPlayerAtIndex(index).getCurrentFootballPlayerRating();
         fullTeam.upgradePlayer(footballPlayer,index);
     }
@@ -135,7 +135,7 @@ public class Player {
     private void purchaseFootballPlayer(FootballPlayer player, int price){
 
         fullTeam.addPlayerToTheTeam(player);
-        currentPlayerOverall += player.getCurrentFootballPlayerRating();
+        currentOverall += player.getCurrentFootballPlayerRating();
         money -= price;
     }
 

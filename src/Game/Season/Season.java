@@ -1,40 +1,33 @@
 package Game.Season;
 
+import Game.Game;
 import Player.Player;
-
 import java.util.Map;
 
-import static Game.Game.getPlayers;
-import static Game.Game.getTeamColoursInCurrentOrder;
-import static Game.Season.GameModes.gameModeForSixPlayers;
-import static Game.Season.GameModes.gameModeForFivePlayers;
-import static Game.Season.GameModes.gameModeForFourPlayers;
-import static Game.Season.GameModes.gameModeForThreePlayers;
-import static Game.Season.GameModes.gameModeForTwoPlayers;
-import static Game.Season.PrintFunctionsForSeason.printStartOfTheSeasonMessage;
-
 public class Season {
+    PrintFunctionsForSeason printFunctionsForSeason = new PrintFunctionsForSeason();
+    GameModes gameModes = new GameModes();
 
-    public static void season() throws InterruptedException {
+    public void season(Game game) throws InterruptedException {
 
-        printStartOfTheSeasonMessage();
-        setALlPlayersCurrentPointsAsTheirOverall(getPlayers());
+        printFunctionsForSeason.printStartOfTheSeasonMessage();
+        setALlPlayersCurrentPointsAsTheirOverall(game.getPlayers());
 
-        switch (getPlayers().size()){
+        switch (game.getPlayers().size()){
 
-            case 2 -> gameModeForTwoPlayers(getPlayers(),getTeamColoursInCurrentOrder());
-            case 3 -> gameModeForThreePlayers(getPlayers(),getTeamColoursInCurrentOrder());
-            case 4 -> gameModeForFourPlayers(getPlayers(),getTeamColoursInCurrentOrder());
-            case 5 -> gameModeForFivePlayers(getPlayers(),getTeamColoursInCurrentOrder());
-            case 6 -> gameModeForSixPlayers(getPlayers(),getTeamColoursInCurrentOrder());
+            case 2 -> gameModes.gameModeForTwoPlayers(game.getPlayers(),game.getTeamColoursInCurrentOrder());
+            case 3 -> gameModes.gameModeForThreePlayers(game.getPlayers(),game.getTeamColoursInCurrentOrder());
+            case 4 -> gameModes.gameModeForFourPlayers(game.getPlayers(),game.getTeamColoursInCurrentOrder());
+            case 5 -> gameModes.gameModeForFivePlayers(game.getPlayers(),game.getTeamColoursInCurrentOrder());
+            case 6 -> gameModes.gameModeForSixPlayers(game.getPlayers(),game.getTeamColoursInCurrentOrder());
         }
     }
 
-    private static void setALlPlayersCurrentPointsAsTheirOverall(Map<String, Player> players){
+    private void setALlPlayersCurrentPointsAsTheirOverall(Map<String, Player> players){
 
         for (Map.Entry<String, Player> player : players.entrySet()){
 
-            player.getValue().setCurrentPointsInTheSeason(player.getValue().getCurrentPlayerOverall());
+            player.getValue().setCurrentPointsInTheSeason(player.getValue().getCurrentOverall());
         }
     }
 

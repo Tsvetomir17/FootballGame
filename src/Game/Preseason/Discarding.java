@@ -1,26 +1,25 @@
 package Game.Preseason;
 
+import Game.Game;
 import Player.Player;
+import Game.InputValidator;
+import java.sql.SQLException;
 
-import static Game.Game.getPlayers;
-import static Game.Game.choiceMadeByTheUserValidation;
-import static Game.Game.getPlayersInTheGameSize;
-import static Game.Game.getTeamColoursInCurrentOrder;
+public class Discarding implements PreSeasonActions{
 
-public class Discarding {
+    @Override
+    public void action(Game game) throws SQLException, ClassNotFoundException, InterruptedException {
 
-    public static void discarding(){
+        for (int i = 0; i < game.getPlayersInTheGameSize(); i++) {
 
-        for (int i = 0; i < getPlayersInTheGameSize(); i++) {
-
-            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(i));
+            Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(i));
             printStartingMessage(currentPlayer);
-            int choiceByPlayer = choiceMadeByTheUserValidation(-1,currentPlayer.getFullTeam().getFullTeamSize());
+            int choiceByPlayer = InputValidator.choiceMadeByTheUserValidation(0,currentPlayer.getFullTeam().getFullTeamSize());
             while (choiceByPlayer != 0){
 
                 removeFootballPlayerAtIndex(choiceByPlayer, currentPlayer);
                 printStartingMessage(currentPlayer);
-                choiceByPlayer = choiceMadeByTheUserValidation(-1,currentPlayer.getFullTeam().getFullTeamSize());
+                choiceByPlayer = InputValidator.choiceMadeByTheUserValidation(0,currentPlayer.getFullTeam().getFullTeamSize());
             }
         }
     }

@@ -1,14 +1,13 @@
 package Game.Starting;
 
 import FootballPlayer.FootballPlayer;
+import Game.Game;
 
 import java.sql.*;
 
-import static Game.Game.pushPlayerToTheDeck;
-
-public class GetAllPlayersFromDB {
-    public static void fillTheListOfFootballPlayers() throws ClassNotFoundException, SQLException {
-
+public class GetAllPlayersFromDB implements StartingAction{
+    @Override
+    public void action(Game game) throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
         String url = "jdbc:postgresql://localhost:5432/FootballGamePlayers";
         String username = "postgres";
@@ -32,7 +31,7 @@ public class GetAllPlayersFromDB {
                     resultSet.getInt(9),
                     resultSet.getInt(10)
             );
-            pushPlayerToTheDeck(footballPlayerToPushInTheDeck);
+            game.pushPlayerToTheDeck(footballPlayerToPushInTheDeck);
         }
     }
 }

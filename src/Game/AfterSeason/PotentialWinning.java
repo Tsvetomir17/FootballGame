@@ -1,40 +1,37 @@
 package Game.AfterSeason;
 
 import FootballCupTeam.FootballCupTeam;
-
 import java.sql.*;
-
-import static Game.Game.getPlayers;
-import static Game.Game.choiceMadeByTheUserValidation;
-import static Game.Game.getTeamColoursInCurrentOrder;
-import static Game.Season.FootballMatches.matchPlayerVsFootballCupTeam;
+import Game.InputValidator;
+import Game.Season.FootballMatches;
+import Player.Player;
 
 public class PotentialWinning {
-    static boolean checkIfWeHaveWinner(){
+    public boolean checkIfWeHaveWinner(Player player){
 
-        return getPlayers().get(getTeamColoursInCurrentOrder().get(0)).getCurrentPointsInTheSeason() >= 100;
+        return player.getCurrentPointsInTheSeason() >= 100;
     }
 
-    static void printWinningMessage(){
+    public void printWinningMessage(Player player){
 
         System.out.println("WE HAVE A CHAMPION");
-        System.out.println("CONGRATULATIONS " + getPlayers().get(getTeamColoursInCurrentOrder().get(0)) + " TEAM, YOU WON THE TOURNAMENT");
+        System.out.println("CONGRATULATIONS " + player.getPlayerColour() + " TEAM, YOU WON THE TOURNAMENT");
     }
 
-    static boolean checkIfWeHavePotentialWinner(){
+    public boolean checkIfWeHavePotentialWinner(Player player){
 
-        return getPlayers().get(getTeamColoursInCurrentOrder().get(0)).getSeasonWins() >= 3;
+        return player.getSeasonWins() >= 3;
     }
 
-    static int choiceForUserToPlayTheFootballCup(){
+    public int choiceForUserToPlayTheFootballCup(Player player){
 
-        printMessageForPlayerThatCanPlayFootballCup();
-        return choiceMadeByTheUserValidation(0,2);
+        printMessageForPlayerThatCanPlayFootballCup(player);
+        return InputValidator.choiceMadeByTheUserValidation(1,2);
     }
 
-    private static void printMessageForPlayerThatCanPlayFootballCup(){
+    private static void printMessageForPlayerThatCanPlayFootballCup(Player player){
 
-        System.out.println(getPlayers().get(getTeamColoursInCurrentOrder().get(0)).getPlayerColour() + ", you are allowed to play the FootballClub vs one random team, because you already have 3 wins.\n" +
+        System.out.println(player.getPlayerColour() + ", you are allowed to play the FootballClub vs one random team, because you already have 3 wins.\n" +
                 "If you win the match, you are the FootballClub champion\n" +
                 "If not, you are losing all your current wins\n" +
                 "Are you going to play the match or we can continue to the next season: \n" +
@@ -42,20 +39,22 @@ public class PotentialWinning {
                 "2. Continue to season");
     }
 
-    static boolean playFootballCupMatch() throws SQLException, ClassNotFoundException, InterruptedException {
+    public boolean playFootballCupMatch(Player player) throws SQLException, ClassNotFoundException, InterruptedException {
 
         FootballCupTeam footballCupTeam = getRandomFootballCupTeamFromDB();
         footballCupTeam.printTeam();
-        if(matchPlayerVsFootballCupTeam(getPlayers().get(getTeamColoursInCurrentOrder().get(0)), footballCupTeam)){
+
+        FootballMatches footballMatches = new FootballMatches();
+        if(footballMatches.matchPlayerVsFootballCupTeam(player, footballCupTeam)){
 
             System.out.println();
-            printWinningMessage();
+            printWinningMessage(player);
             return true;
         }
         return false;
     }
 
-    private static FootballCupTeam getRandomFootballCupTeamFromDB() throws ClassNotFoundException, SQLException {
+    private FootballCupTeam getRandomFootballCupTeamFromDB() throws ClassNotFoundException, SQLException {
 
         Class.forName("org.postgresql.Driver");
         String url = "jdbc:postgresql://localhost:5432/FootballGamePlayers";

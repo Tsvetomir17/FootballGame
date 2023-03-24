@@ -1,21 +1,24 @@
 package Game.Starting;
 
+import Game.Game;
 import Player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static Game.Game.*;
+import Game.InputValidator;
 
-public class SetPlayersColoursAndMoney {
+public class SetPlayersColoursAndMoney implements StartingAction {
 
-    public static void setPlayersColoursAndMoney(){
 
-        playersChoosingTeamColours();
-        setEveryPlayerStartingMoney();
+    @Override
+    public void action(Game game) {
+
+        playersChoosingTeamColours(game);
+        setEveryPlayerStartingMoney(game);
     }
 
-    private static String playersChoosingTeamColoursHelper(List<String> listOfRemainingColours, int indexOfCurrentPlayer){
+    private String playersChoosingTeamColoursHelper(List<String> listOfRemainingColours, int indexOfCurrentPlayer){
 
         for (int colourIterator = 0; colourIterator < listOfRemainingColours.size(); colourIterator++) {
 
@@ -23,23 +26,23 @@ public class SetPlayersColoursAndMoney {
         }
         System.out.println("Player №" + (indexOfCurrentPlayer + 1) + ", please select the colour of your team: ");
 
-        return listOfRemainingColours.get(choiceMadeByTheUserValidation(0, listOfRemainingColours.size()) - 1);
+        return listOfRemainingColours.get(InputValidator.choiceMadeByTheUserValidation(1, listOfRemainingColours.size()) - 1);
     }
 
-    private static void playersChoosingTeamColours(){
+    private void playersChoosingTeamColours(Game game){
 
         List<String> remainingColours = getColoursList();
 
-        for (int indexOfCurrentPlayer = 0; indexOfCurrentPlayer < getPlayersInTheGameSize(); indexOfCurrentPlayer++) {
+        for (int indexOfCurrentPlayer = 0; indexOfCurrentPlayer < game.getPlayersInTheGameSize(); indexOfCurrentPlayer++) {
 
             String result = playersChoosingTeamColoursHelper(remainingColours,indexOfCurrentPlayer);
-            getPlayers().put(result,new Player(result));
-            getTeamColoursInCurrentOrder().add(result);
+            game.getPlayers().put(result,new Player(result));
+            game.getTeamColoursInCurrentOrder().add(result);
             remainingColours.remove(result);
         }
     }
 
-    private static List<String> getColoursList(){
+    private List<String> getColoursList(){
 
         List<String> colours = new ArrayList<>();
         colours.add("Red");
@@ -52,28 +55,28 @@ public class SetPlayersColoursAndMoney {
         return colours;
     }
 
-    private static void printMoneyChoiceMessage(){
+    private void printMoneyChoiceMessage(){
 
         System.out.println("Choose starting money for the players: ");
         System.out.println("1. 150M.");
         System.out.println("2. 120M.");
         System.out.println("3.  90M.");
     }
-    private static int makingChoiceForStartingMoney(){
+    private int makingChoiceForStartingMoney(){
 
         printMoneyChoiceMessage();
 
-        int choice = choiceMadeByTheUserValidation(0,3);
+        int choice = InputValidator.choiceMadeByTheUserValidation(1,3);
 
         if(choice == 1) return 150;
         else if(choice == 2) return 120;
         return 90;
     }
 
-    private static void setEveryPlayerStartingMoney(){
+    private void setEveryPlayerStartingMoney(Game game){
 
         int moneyForEveryPlayer = makingChoiceForStartingMoney();
-        for(Player player : getPlayers().values()){
+        for(Player player : game.getPlayers().values()){
 
             player.addMoneyToThePlayer(moneyForEveryPlayer);
         }

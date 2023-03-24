@@ -1,47 +1,49 @@
 package Game.Starting;
 
 import FootballPlayer.FootballPlayer;
+import Game.Game;
 import Player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import Game.InputValidator;
 
-import static Game.Game.*;
 import static Game.FinalVariables.DRAFT_SIZE;
 
-public class Draft {
+public class Draft implements StartingAction{
 
-    public static void setTheFootballPlayersDraft(){
+    @Override
+    public void action(Game game) {
 
         List<FootballPlayer> currentPlayersInTheDraft;
         int currentIndexForTheTeamToPick = 0;
 
-        for (int i = 0; i < getPlayersInTheGameSize(); i++) {
+        for (int i = 0; i < game.getPlayersInTheGameSize(); i++) {
 
-            currentPlayersInTheDraft = setPlayersToBeDrafted();
+            currentPlayersInTheDraft = setPlayersToBeDrafted(game);
 
             while (!currentPlayersInTheDraft.isEmpty()) {
 
                 printFootballPlayers(currentPlayersInTheDraft);
 
-                playerToPickFootballPlayer(getPlayers().get(getTeamColoursInCurrentOrder().get(currentIndexForTheTeamToPick)), currentPlayersInTheDraft);
-                currentIndexForTheTeamToPick = setCurrentIndexForTeamToPick(currentIndexForTheTeamToPick);
+                playerToPickFootballPlayer(game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(currentIndexForTheTeamToPick)), currentPlayersInTheDraft);
+                currentIndexForTheTeamToPick = setCurrentIndexForTeamToPick(currentIndexForTheTeamToPick, game.getPlayersInTheGameSize());
             }
         }
     }
 
-    private static List<FootballPlayer> setPlayersToBeDrafted(){
+    private List<FootballPlayer> setPlayersToBeDrafted(Game game){
 
         List<FootballPlayer> currentPlayersInTheDraft = new ArrayList<>();
         for (int j = 0; j < DRAFT_SIZE; j++) {
 
-            currentPlayersInTheDraft.add(getTheTopPlayerFromTheDeck());
+            currentPlayersInTheDraft.add(game.getTheTopPlayerFromTheDeck());
         }
 
         return currentPlayersInTheDraft;
     }
 
-    private static void printFootballPlayers(List<FootballPlayer> currentPlayersInTheDraft) {
+    private void printFootballPlayers(List<FootballPlayer> currentPlayersInTheDraft) {
 
         int iterator = 1;
         for (FootballPlayer player : currentPlayersInTheDraft) {
@@ -51,18 +53,18 @@ public class Draft {
         }
     }
 
-    private static void playerToPickFootballPlayer(Player player, List<FootballPlayer> currentPlayersInTheDraft){
+    private void playerToPickFootballPlayer(Player player, List<FootballPlayer> currentPlayersInTheDraft){
 
         System.out.println(player.getPlayerColour() + ", it is your turn to pick: ");
-        int choiceByPlayer = choiceMadeByTheUserValidation(0, currentPlayersInTheDraft.size()) -1;
+        int choiceByPlayer = InputValidator.choiceMadeByTheUserValidation(1, currentPlayersInTheDraft.size()) -1;
         player.addFootballPlayerToTheTeamViaDraft(currentPlayersInTheDraft.get(choiceByPlayer));
 
         currentPlayersInTheDraft.remove(choiceByPlayer);
     }
 
 
-    private static int setCurrentIndexForTeamToPick(int index){
+    private int setCurrentIndexForTeamToPick(int index, int playersInTheGameSize){
 
-        return ++index == getPlayersInTheGameSize() ? 0 : index;
+        return ++index == playersInTheGameSize ? 0 : index;
     }
 }

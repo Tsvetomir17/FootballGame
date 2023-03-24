@@ -1,31 +1,28 @@
 package Game.Preseason;
 
 import FootballPlayer.FootballPlayer;
+import Game.Game;
 import Player.Player;
-
+import Game.InputValidator;
+import java.sql.SQLException;
 import java.util.*;
-
-import static Game.Game.getPlayers;
-import static Game.Game.choiceMadeByTheUserValidation;
-import static Game.Game.getPlayersInTheGameSize;
-import static Game.Game.getTeamColoursInCurrentOrder;
-import static Game.Game.getTheTopPlayerFromTheDeck;
 import static Game.FinalVariables.MAX_FOOTBALL_PLAYERS_IN_TEAM_SIZE;
 
-public class DeadlineDay {
+public class DeadlineDay implements PreSeasonActions{
 
-    public static void deadlineDay(){
+    @Override
+    public void action(Game game) throws SQLException, ClassNotFoundException, InterruptedException {
 
-        int playersThatWillAppearOnDeadlineDay = getPlayersInTheGameSize() + 1;
+        int playersThatWillAppearOnDeadlineDay = game.getPlayersInTheGameSize() + 1;
 
         for (int i = 0; i < playersThatWillAppearOnDeadlineDay; i++) {
 
-            FootballPlayer currentFootballPlayerOnDeadlineDay = getTheTopPlayerFromTheDeck();
+            FootballPlayer currentFootballPlayerOnDeadlineDay = game.getTheTopPlayerFromTheDeck();
             currentFootballPlayerOnDeadlineDay.printFootballPlayerAsCard();
             int currentToBid = currentFootballPlayerOnDeadlineDay.getDeadlineDayPrice();
 
             List<Player> playersThatBidForTheCurrentFootballPlayer =
-                    goingToParticipateInTheBidding(currentFootballPlayerOnDeadlineDay,currentToBid);
+                    goingToParticipateInTheBidding(game, currentFootballPlayerOnDeadlineDay, currentToBid);
 
             currentToBid += playersThatBidForTheCurrentFootballPlayer.size();
             biddingBetweenThePlayersThatParticipateInTheBidding(playersThatBidForTheCurrentFootballPlayer,
@@ -69,11 +66,11 @@ public class DeadlineDay {
         System.out.println();
         System.out.println();
     }
-    private static List<Player> goingToParticipateInTheBidding(FootballPlayer footballPlayer, int currentToBid){
+    private static List<Player> goingToParticipateInTheBidding(Game game, FootballPlayer footballPlayer, int currentToBid){
 
         List<Player> playersThatBidForTheCurrentFootballPlayer = new ArrayList<>();
-        for (int j = 0; j < getPlayersInTheGameSize(); j++) {
-            Player currentPlayer = getPlayers().get(getTeamColoursInCurrentOrder().get(j));
+        for (int j = 0; j < game.getPlayersInTheGameSize(); j++) {
+            Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(j));
             if(playerChoiceToBidOrSkip(currentPlayer,footballPlayer,currentToBid)){
                 playersThatBidForTheCurrentFootballPlayer.add(currentPlayer);
                 currentToBid++;
@@ -90,7 +87,7 @@ public class DeadlineDay {
         }
         printCurrentPlayerWithBidMessage(footballPlayer,currentToBid, currentPlayer);
 
-        int choiceByUser = choiceMadeByTheUserValidation(0,2);
+        int choiceByUser = InputValidator.choiceMadeByTheUserValidation(1,2);
         return choiceByUser != 2;
     }
 
@@ -124,5 +121,4 @@ public class DeadlineDay {
         System.out.println("    2. Skip");
         System.out.println();
     }
-
 }

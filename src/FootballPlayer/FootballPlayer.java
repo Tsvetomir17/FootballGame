@@ -11,6 +11,8 @@ public class FootballPlayer {
     private final int scoutingPrice;
     private final int deadlineDayPrice;
 
+    private final PrintFunctionsForFootballPlayers printFunctionsForFootballPlayers = new PrintFunctionsForFootballPlayers();
+
     public FootballPlayer(String footballPlayerName, int currentFootballPlayerRating, int maxFootballPlayerRating,
                           String footballPlayerPosition, boolean hasLeftChemistryStyle,
                           boolean hasRightChemistryStyle, boolean isCaptain, int scoutingPrice,
@@ -83,12 +85,12 @@ public class FootballPlayer {
 
     public void printFootballPlayer(){
 
-        PrintFunctionsForFootballPlayers.printFootballPlayerOnOneRow(this);
+        printFunctionsForFootballPlayers.printFootballPlayerOnOneRow(this);
     }
 
     public void printFootballPlayerAsCard(){
 
-        PrintFunctionsForFootballPlayers.printFootballPlayerAsCard(this);
+        printFunctionsForFootballPlayers.printFootballPlayerAsCard(this);
     }
 
     private FootballPlayersPositions setFootballPlayerPosition(String position){

@@ -2,7 +2,6 @@ package Player;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import static Game.FinalVariables.FIRST_STADIUM_UPGRADE_PRICE;
 import static Game.FinalVariables.FIRST_TRAINING_CENTRE_AND_SCOUTING_UPGRADE_PRICE;
 import static Game.FinalVariables.MAX_LEVEL_UPGRADE;

@@ -1,5 +1,4 @@
 package FootballCupTeam;
-
 public class FootballCupTeam {
 
     private final String name;
