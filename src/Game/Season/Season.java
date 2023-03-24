@@ -5,6 +5,7 @@ import Player.Player;
 import java.util.Map;
 
 public class Season {
+
     PrintFunctionsForSeason printFunctionsForSeason = new PrintFunctionsForSeason();
     GameModes gameModes = new GameModes();
 

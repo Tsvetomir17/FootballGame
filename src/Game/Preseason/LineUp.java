@@ -116,7 +116,6 @@ public class LineUp implements PreSeasonActions{
     }
     private static void fillOneLineWithPlayersAndReturnStats(FullTeam playerSquad, int lineSize, List<FootballPlayer> currentRow){
 
-
         for (int i = 0; i < lineSize; i++) {
 
             playerSquad.printFullTeam();

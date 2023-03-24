@@ -1,6 +1,7 @@
 package Game;
 
 public class PrintFunctionsForDifferentStagesOfTheGame implements IPrintFunctionsForDifferentStagesOfTheGame {
+
     public void printStartingMessage(){
 
         System.out.println("Hello! Welcome to the FootballCup game!");

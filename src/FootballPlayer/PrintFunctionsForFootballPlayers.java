@@ -7,6 +7,7 @@ import static Game.FinalVariables.CHECK_MARK_POINTING_IF_FOOTBALL_PLAYER_HAS_CHE
 import static Game.FinalVariables.CAPTAIN_SYMBOL_FOR_FOOTBALL_PLAYERS;
 
 public class PrintFunctionsForFootballPlayers implements IPrintFunctionsForFootballPlayers {
+
     @Override
     public void printFootballPlayerAsCard(FootballPlayer player){
 
@@ -106,5 +107,4 @@ public class PrintFunctionsForFootballPlayers implements IPrintFunctionsForFootb
         System.out.println(addOneMoreSpaceInTheBeginningIfPriceIsUnderTen + player.getScoutingPrice() + "M."
         + "   " + player.getDeadlineDayPrice() + "M.");
     }
-
 }

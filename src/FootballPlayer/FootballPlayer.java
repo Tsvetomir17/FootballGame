@@ -1,6 +1,7 @@
 package FootballPlayer;
 
 public class FootballPlayer {
+
     private final String name;
     private final int currentRating;
     private final int maxRating;

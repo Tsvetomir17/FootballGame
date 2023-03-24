@@ -5,7 +5,6 @@ import Player.Player;
 import java.sql.*;
 import java.util.List;
 import java.util.Map;
-
 import static Game.FinalVariables.FIRST_PLACE_IN_THE_SEASON_INCOME;
 import static Game.FinalVariables.STEP_BEHIND_THE_FIRST_PLACE_FOR_SEASON_INCOME;
 

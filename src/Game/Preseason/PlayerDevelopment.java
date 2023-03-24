@@ -4,7 +4,6 @@ import FootballPlayer.FootballPlayer;
 import Game.Dice;
 import Game.Game;
 import Player.Player;
-
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +14,7 @@ public class PlayerDevelopment implements PreSeasonActions{
 
     @Override
     public void action(Game game) throws SQLException, ClassNotFoundException, InterruptedException {
+
         for (int i = 0; i < game.getPlayers().size(); i++) {
 
             Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(i));
@@ -68,8 +68,7 @@ public class PlayerDevelopment implements PreSeasonActions{
 
         int choiceByPlayer = InputValidator.choiceMadeByTheUserValidation(0,currentPlayer.getFullTeam().getFullTeamSize()) -1;
         if(choiceByPlayer == -1) return  choiceByPlayer;
-        while(isThePlayerUpgradedThisSeason
-                (alreadyTriedToUpgradePlayers, currentPlayer.getFullTeam().getFootballPlayerAtIndex(choiceByPlayer))){
+        while(isThePlayerUpgradedThisSeason(alreadyTriedToUpgradePlayers, currentPlayer.getFullTeam().getFootballPlayerAtIndex(choiceByPlayer))){
 
             System.out.println("You already trained that player this season, try another one");
             choiceByPlayer = InputValidator.choiceMadeByTheUserValidation(-1,currentPlayer.getFullTeam().getFullTeamSize()) -1;
@@ -107,7 +106,8 @@ public class PlayerDevelopment implements PreSeasonActions{
 
             footballPlayer = getThePlayerFromTheDatabaseOfDevelopedPlayers(footballPlayer.getFootballPlayerName(), upgradeVariable);
             footballPlayer.printFootballPlayerAsCard();
-        }else{
+        }
+        else{
 
             System.out.println("Good luck next time!");
         }

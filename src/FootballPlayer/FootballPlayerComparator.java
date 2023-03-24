@@ -1,6 +1,7 @@
 package FootballPlayer;
 
 import java.util.Comparator;
+
 public class FootballPlayerComparator implements Comparator<FootballPlayer> {
 
     @Override

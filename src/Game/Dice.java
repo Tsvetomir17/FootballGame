@@ -1,7 +1,9 @@
 package Game;
 
 import java.util.Random;
+
 public class Dice {
+
     private final int number;
     private final Random random;
 

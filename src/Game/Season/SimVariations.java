@@ -7,6 +7,7 @@ import static Game.FinalVariables.SECOND_LEVEL_OVERALL_RATING;
 import static Game.FinalVariables.THIRD_LEVEL_OVERALL_RATING;
 
 public class SimVariations {
+
     PrintFunctionsForSeason printFunctionsForSeason = new PrintFunctionsForSeason();
     public void simulateMatch(Player player) throws InterruptedException {
 

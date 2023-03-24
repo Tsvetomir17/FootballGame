@@ -21,12 +21,10 @@ public class DeadlineDay implements PreSeasonActions{
             currentFootballPlayerOnDeadlineDay.printFootballPlayerAsCard();
             int currentToBid = currentFootballPlayerOnDeadlineDay.getDeadlineDayPrice();
 
-            List<Player> playersThatBidForTheCurrentFootballPlayer =
-                    goingToParticipateInTheBidding(game, currentFootballPlayerOnDeadlineDay, currentToBid);
+            List<Player> playersThatBidForTheCurrentFootballPlayer = goingToParticipateInTheBidding(game, currentFootballPlayerOnDeadlineDay, currentToBid);
 
             currentToBid += playersThatBidForTheCurrentFootballPlayer.size();
-            biddingBetweenThePlayersThatParticipateInTheBidding(playersThatBidForTheCurrentFootballPlayer,
-                    currentFootballPlayerOnDeadlineDay,currentToBid);
+            biddingBetweenThePlayersThatParticipateInTheBidding(playersThatBidForTheCurrentFootballPlayer, currentFootballPlayerOnDeadlineDay,currentToBid);
         }
     }
 
@@ -46,7 +44,8 @@ public class DeadlineDay implements PreSeasonActions{
                     if(playerChoiceToBidOrSkip(playersThatBidForTheCurrentFootballPlayer.get(i),footballPlayer,currentToBid)){
 
                         currentToBid++;
-                    }else{
+                    }
+                    else{
 
                         playersThatBidForTheCurrentFootballPlayer.remove(i);
                         i--;
@@ -66,12 +65,15 @@ public class DeadlineDay implements PreSeasonActions{
         System.out.println();
         System.out.println();
     }
+
     private static List<Player> goingToParticipateInTheBidding(Game game, FootballPlayer footballPlayer, int currentToBid){
 
         List<Player> playersThatBidForTheCurrentFootballPlayer = new ArrayList<>();
         for (int j = 0; j < game.getPlayersInTheGameSize(); j++) {
+
             Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(j));
             if(playerChoiceToBidOrSkip(currentPlayer,footballPlayer,currentToBid)){
+
                 playersThatBidForTheCurrentFootballPlayer.add(currentPlayer);
                 currentToBid++;
             }
@@ -79,6 +81,7 @@ public class DeadlineDay implements PreSeasonActions{
 
         return playersThatBidForTheCurrentFootballPlayer;
     }
+
     private static boolean playerChoiceToBidOrSkip(Player currentPlayer, FootballPlayer footballPlayer, int currentToBid){
 
         if(!canThePlayerBidForThisFootballPlayer(currentPlayer,currentToBid)){

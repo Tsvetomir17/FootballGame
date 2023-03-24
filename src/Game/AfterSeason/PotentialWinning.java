@@ -7,6 +7,7 @@ import Game.Season.FootballMatches;
 import Player.Player;
 
 public class PotentialWinning {
+
     public boolean checkIfWeHaveWinner(Player player){
 
         return player.getCurrentPointsInTheSeason() >= 100;

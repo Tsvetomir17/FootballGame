@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 public class GameModes {
+
     PrintFunctionsForSeason printFunctionsForSeason = new PrintFunctionsForSeason();
     FootballMatches footballMatches = new FootballMatches();
+
     public void gameModeForTwoPlayers(Map<String, Player> players, List<String> teamColoursInCurrentOrder) throws InterruptedException {
 
         printFunctionsForSeason.printPlayersStartingPositionsAndCurrentPoints(players,teamColoursInCurrentOrder);

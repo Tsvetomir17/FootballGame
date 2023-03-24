@@ -18,6 +18,7 @@ import java.util.*;
 
 
 public class Game {
+
     private int playersInTheGameSize;
     private final Stack<FootballPlayer> theFullDeckOfFootballPlayers;
     private final Map<String, Player> players;
@@ -30,6 +31,7 @@ public class Game {
     private final Scouting scouting = new Scouting();
     private final Upgrades upgrades = new Upgrades();
     private final Season season = new Season();
+
     private Game(){
 
         players = new HashMap<>();
@@ -69,6 +71,7 @@ public class Game {
     }
 
     private static final Game instance = new Game();
+
     private void setPlayersInTheGameSize(){
 
         playersInTheGameSize = InputValidator.choiceMadeByTheUserValidation(2,6);
@@ -91,6 +94,7 @@ public class Game {
         playerDevelopment.action(getGameInstance());
         scoutingUpgradesDeadlineLineUpAndSeason();
     }
+
     private void nextSeason() throws SQLException, ClassNotFoundException, InterruptedException {
 
         AfterSeason afterSeason = new AfterSeason();

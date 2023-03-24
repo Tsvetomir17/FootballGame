@@ -2,14 +2,11 @@ package Game.Starting;
 
 import Game.Game;
 import Player.Player;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import Game.InputValidator;
 
 public class SetPlayersColoursAndMoney implements StartingAction {
-
 
     @Override
     public void action(Game game) {

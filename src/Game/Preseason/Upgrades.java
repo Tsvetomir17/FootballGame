@@ -17,6 +17,7 @@ public class Upgrades implements PreSeasonActions {
 
     @Override
     public void action(Game game) throws SQLException, ClassNotFoundException, InterruptedException{
+
         for (int i = 0; i < game.getPlayersInTheGameSize(); i++) {
 
             Player currentPlayer = game.getPlayers().get(game.getTeamColoursInCurrentOrder().get(i));
